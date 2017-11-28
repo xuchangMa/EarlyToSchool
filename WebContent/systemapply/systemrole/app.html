@@ -1,0 +1,185 @@
+﻿<link rel="stylesheet" href="../assets/css/appcustom.css">
+<div id="roleform" class="widget-body  am-fr">
+	<script src="../systemapply/systemrole/app.js"></script>
+	<div id="RoleShowPage">
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+			<div class="am-form-group">
+				<div class="am-btn-toolbar">
+					<div class="am-btn-group am-btn-group-xs">
+						<button type="button" class="am-btn am-btn-default am-btn-success"
+							onclick="RoleEditFunc(null);">
+							<span class="am-icon-plus"></span> 新增
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+			<div class="am-form-group tpl-table-list-select">
+				<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+					<option value="option1">所有类别</option>
+					<option value="option2">角色编码</option>
+					<option value="option3">角色名称</option>
+				</select>
+				<div class="am-selected am-dropdown" data-am-dropdown="">
+					<button
+						class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+						type="button" onclick="Roleselected();">
+						<span id="Roleshowselected" class="am-selected-status am-fl">所有类别</span>
+						<i class="am-selected-icon am-icon-caret-down"> </i>
+					</button>
+
+					<div id="Roleselect"
+						class="am-selected-content am-dropdown-content"
+						style="min-width: 200px; display: none;">
+						<ul class="am-selected-list">
+							<li class="" data-index="0" data-group="0"
+								onclick="Roleoption('所有类别')"><span class="am-selected-text">所有类别</span>
+								<i class="am-icon-check"></i></li>
+							<li class="" data-index="1" data-group="0"
+								onclick="Roleoption('角色编码')"><span class="am-selected-text">角色编码</span>
+								<i class="am-icon-check"></i></li>
+							<li class="" data-index="2" data-group="0"
+								onclick="Roleoption('角色名称')"><span class="am-selected-text">角色名称</span>
+								<i class="am-icon-check"></i></li>
+
+						</ul>
+						<div class="am-selected-hint"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+			<div
+				class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+				<input id="RoleSeleVal" type="text" class="am-form-field ">
+				<span class="am-input-group-btn">
+					<button
+						class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+						onclick="GetRoleQuery();" type="button"></button>
+				</span>
+			</div>
+		</div>
+
+		<div class="am-u-sm-12">
+			<table width="100%"
+				class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
+				id="example-r">
+				<thead>
+					<tr>
+						<th>角色编码</th>
+						<th>角色名称</th>
+						<th style="width: 80px;">是否生效</th>
+						<th style="width: 130px;">操作</th>
+					</tr>
+				</thead>
+				<tbody id="SystemRoleData"></tbody>
+			</table>
+		</div>
+		<div class="am-u-lg-12 am-cf">
+			<div class="am-fr">
+				<div class="PagesDialog" id="RolePagesDialog">
+					<ul id="RolePages2" class="am-pagination tpl-pagination">
+					</ul>
+				</div>
+				<ul id="RolePages" class="am-pagination tpl-pagination">
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id="SysetmRoleMessage" class="DeleteConfirm">
+			<div class="am-modal-dialog" style="top:100px;">
+				<div class="am-modal-hd" style="color: #000000">角色信息数据</div>
+				<div class="am-modal-bd" style="color: #000000">你，确定要删除这条记录吗？
+				</div>
+				<div class="am-modal-footer">
+					<span class="am-modal-btn" onclick="RoleNOMessage();">取消</span> <span
+						id="RoleOKDelete" class="am-modal-btn">确定</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="RoleEditPage" class="am-g tpl-g" style="display: none;">
+		<div class="container-fluid am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+					<div class="page-header-heading">
+						<span class="am-icon-home page-header-heading-icon"></span> 角色表单 <small>User
+							Form</small>
+					</div>
+					<p class="page-header-description">填写角色基本信息。</p>
+				</div>
+				<div class="am-u-lg-3" style="width: 50px">
+					<a href="javascript:RoleEditClose();"
+						class="am-close am-close-alt am-close-spin am-icon-times"></a>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row-content am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+					<div class="widget am-cf">
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">角色信息</div>
+							<div class="widget-function am-fr">
+								<a href="javascript:;" class="am-icon-cog"></a>
+							</div>
+						</div>
+						<div class="widget-body am-fr">
+
+							<form class="am-form tpl-form-line-form">
+								<div class="am-form-group">
+									<label for="user-name" class="am-u-sm-3 am-form-label">角色编码
+										<span class="tpl-form-line-small-title">RoleCode</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" class="tpl-form-input" id="SystemRoleCode"
+											placeholder="请输入角色编码字符"> <small>请填写角色编码4字符。</small>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">角色名称
+										<span class="tpl-form-line-small-title">RoleName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="角色名称"> <small>请填写角色名称。</small>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-intro" class="am-u-sm-3 am-form-label">启用角色</label>
+									<div class="am-u-sm-9">
+										<div class="tpl-switch">
+											<input type="checkbox" id="SystemRoleDeleteFlag"
+												class="ios-switch bigswitch tpl-switch-btn" checked="">
+											<div class="tpl-switch-btn-view">
+												<div></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3">
+										<button type="button" onclick="RoleSaveData();"
+											class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>

@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+/* Custom BTN style start */
+.am-btn.am-radius {
+	border-radius: 5px;
+}
+
+/* 添加 */
+.am-btn-add {
+	color: #00ff40;
+	background-color: #ffffff;
+	border-color: #00ff40;
+}
+
+a.am-btn-add:visited {
+	color: #ffffff;
+}
+
+.am-btn-add:hover, .am-btn-add:focus, .am-btn-add:active, .am-btn-add.am-active,
+	.am-dropdown.am-add .am-btn-add.am-dropdown-toggle {
+	color: #ffffff;
+	border-color: #00ff40;
+}
+
+.am-btn-add:hover, .am-btn-add:focus {
+	background-color: #00ff40;
+}
+
+/* 删除 */
+.am-btn-del {
+	color: #ff0000;
+	background-color: #ffffff;
+	border-color: #ff0000;
+}
+
+a.am-btn-del:visited {
+	color: #ffffff;
+}
+
+.am-btn-del:hover, .am-btn-del:focus, .am-btn-del:active, .am-btn-del.am-active,
+	.am-dropdown.am-del .am-btn-del.am-dropdown-toggle {
+	color: #ffffff;
+	border-color: #ff0000;
+}
+
+.am-btn-del:hover, .am-btn-del:focus {
+	background-color: #ff0000;
+}
+
+/* 导入 */
+.am-btn-imp {
+	color: #0080ff;
+	background-color: #ffffff;
+	border-color: #0080ff;
+}
+
+a.am-btn-imp:visited {
+	color: #ffffff;
+}
+
+.am-btn-imp:hover, .am-btn-imp:focus, .am-btn-imp:active, .am-btn-imp.am-active,
+	.am-dropdown.am-imp .am-btn-imp.am-dropdown-toggle {
+	color: #ffffff;
+	border-color: #0080ff;
+}
+
+.am-btn-imp:hover, .am-btn-imp:focus {
+	background-color: #0080ff;
+}
+
+/* 导出 */
+.am-btn-exp {
+	color: #ff8040;
+	background-color: #ffffff;
+	border-color: #ff8040;
+}
+
+a.am-btn-exp:visited {
+	color: #ffffff;
+}
+
+.am-btn-exp:hover, .am-btn-exp:focus, .am-btn-exp:active, .am-btn-exp.am-active,
+	.am-dropdown.am-exp .am-btn-exp.am-dropdown-toggle {
+	color: #ffffff;
+	border-color: #ff8040;
+}
+
+.am-btn-exp:hover, .am-btn-exp:focus {
+	background-color: #ff8040;
+}
+
+/* Custom BTN style end */

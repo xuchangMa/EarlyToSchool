@@ -1,0 +1,245 @@
+﻿<link rel="stylesheet" href="../assets/css/appcustom.css">
+<div id="userform" class="widget-body  am-fr">
+	<script src="../systemapply/systemuser/app.js"></script>
+	<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+		<div class="am-form-group">
+			<div class="am-btn-toolbar">
+				<div class="am-btn-group am-btn-group-xs">
+					<button type="button" class="am-btn am-btn-default am-btn-success"
+						onclick="Edit();">
+						<span class="am-icon-plus"></span> 新增
+					</button>
+					<button type="button"
+						class="am-btn am-btn-default am-btn-secondary">
+						<span class="am-icon-save"></span> 保存
+					</button>
+					<button type="button" class="am-btn am-btn-default am-btn-warning">
+						<span class="am-icon-archive"></span> 审核
+					</button>
+					<button type="button" class="am-btn am-btn-default am-btn-danger">
+						<span class="am-icon-trash-o"></span> 删除
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+		<div class="am-form-group tpl-table-list-select">
+			<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+				<option value="option1">所有类别</option>
+				<option value="option2">IT业界</option>
+				<option value="option3">数码产品</option>
+				<option value="option3">笔记本电脑</option>
+				<option value="option3">平板电脑</option>
+				<option value="option3">只能手机</option>
+				<option value="option3">超极本</option>
+			</select>
+			<div class="am-selected am-dropdown" data-am-dropdown="">
+				<button
+					class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+					type="button" onclick="selected();">
+					<span id="showselected" class="am-selected-status am-fl">所有类别</span>
+					<i class="am-selected-icon am-icon-caret-down"> </i>
+				</button>
+
+				<div id="select1" class="am-selected-content am-dropdown-content"
+					style="min-width: 200px; display: none;">
+					<ul class="am-selected-list">
+						<li class="" data-index="0" data-group="0"
+							onclick="option('所有类别')"><span class="am-selected-text">所有类别</span>
+							<i class="am-icon-check"></i></li>
+						<li class="" data-index="1" data-group="0"
+							onclick="option('IT业界')"><span class="am-selected-text">IT业界</span>
+							<i class="am-icon-check"></i></li>
+						<li class="" data-index="2" data-group="0"
+							onclick="option('数码产品')"><span class="am-selected-text">数码产品</span>
+							<i class="am-icon-check"></i></li>
+						<li class="" data-index="3" data-group="0"
+							onclick="option('笔记本电脑')"><span class="am-selected-text">笔记本电脑</span>
+							<i class="am-icon-check"></i></li>
+
+					</ul>
+					<div class="am-selected-hint"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+		<div
+			class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+			<input type="text" class="am-form-field "> <span
+				class="am-input-group-btn">
+				<button
+					class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+					type="button"></button>
+			</span>
+		</div>
+	</div>
+
+	<div class="am-u-sm-12">
+		<table width="100%"
+			class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
+			id="example-r">
+			<thead>
+				<tr>
+					<th>文章标题</th>
+					<th>作者</th>
+					<th>时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class="gradeX">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="gradeX">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+
+				<tr class="gradeX">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+
+				<tr class="even gradeC">
+					<td>Amaze UI 模式窗口</td>
+					<td>张鹏飞</td>
+					<td>2016-09-26</td>
+					<td>
+						<div class="tpl-table-black-operation">
+							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
+							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
+								<i class="am-icon-trash"></i> 删除
+							</a>
+						</div>
+					</td>
+				</tr>
+				<!-- more data -->
+			</tbody>
+		</table>
+	</div>
+	<div class="am-u-lg-12 am-cf">
+		<div class="am-fr">
+			<div class="PagesDialog" style="">
+				<em></em><span></span>CSS气泡框实现
+			</div>
+			<ul class="am-pagination tpl-pagination">
+				<li class="am-disabled"><a href="#">«</a></li>
+				<li class="am-active"><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">...</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">5</a></li>
+				<li><a href="#">»</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

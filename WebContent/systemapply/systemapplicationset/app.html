@@ -1,0 +1,233 @@
+﻿<meta charset="utf-8">
+<link rel="stylesheet" href="../assets/css/appcustom.css">
+<div id="roleform" class="widget-body  am-fr">
+    <script src="../systemapply/systemapplicationset/app.js"></script>
+    <div id="SystemApplicationSetShowPage">
+        <div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+            <div class="am-form-group">
+                <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                        <button type="button" class="am-btn am-btn-default am-btn-success"
+                                onclick="SystemApplicationSetEditFunc(null);">
+                            <span class="am-icon-plus"></span> 新增
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+            <div class="am-form-group tpl-table-list-select">
+                <select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+                    <option value="option1">所有类别</option>
+                    <option value="option2">应用编码</option>
+                    <option value="option3">应用名称</option>
+                    <option value="option4">应用级别</option>
+                </select>
+                <div class="am-selected am-dropdown" data-am-dropdown="">
+                    <button class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+                            type="button" onclick="SystemApplicationSetselected();">
+                        <span id="SystemApplicationSetshowselected" class="am-selected-status am-fl">所有类别</span>
+                        <i class="am-selected-icon am-icon-caret-down"> </i>
+                    </button>
+
+                    <div id="SystemApplicationSetselect"
+                         class="am-selected-content am-dropdown-content"
+                         style="min-width: 200px; display: none;">
+                        <ul class="am-selected-list">
+                            <li class="" data-index="0" data-group="0"
+                                onclick="SystemApplicationSetoption('所有类别')">
+                                <span class="am-selected-text">所有类别</span>
+                                <i class="am-icon-check"></i>
+                            </li>
+                            <li class="" data-index="1" data-group="0"
+                                onclick="SystemApplicationSetoption('应用编码')">
+                                <span class="am-selected-text">应用编码</span>
+                                <i class="am-icon-check"></i>
+                            </li>
+                            <li class="" data-index="2" data-group="0"
+                                onclick="SystemApplicationSetoption('应用名称')">
+                                <span class="am-selected-text">应用名称</span>
+                                <i class="am-icon-check"></i>
+                            </li>
+                            <li class="" data-index="3" data-group="0"
+                                onclick="SystemApplicationSetoption('应用级别')">
+                                <span class="am-selected-text">应用级别</span>
+                                <i class="am-icon-check"></i>
+                            </li>
+
+                        </ul>
+                        <div class="am-selected-hint"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                <input id="SystemApplicationSetSeleVal" type="text" class="am-form-field ">
+                <span class="am-input-group-btn">
+                    <button class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+                            onclick="GetSystemApplicationSetQuery();" type="button"></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="am-u-sm-12">
+            <table width="100%"
+                   class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
+                   id="example-r">
+                <thead>
+                    <tr>
+                        <th>应用编码</th>
+                        <th>应用名称</th>
+                        <th>应用图标</th>
+                        <th>应用级别</th>
+                        <th>应用URL</th>
+                        <th>显示位置</th>
+                        <th style="width: 80px;">是否生效</th>
+                        <th style="width: 130px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="SystemApplicationSetData"></tbody>
+            </table>
+        </div>
+        <div class="am-u-lg-12 am-cf">
+            <div class="am-fr">
+                <div class="PagesDialog" id="SystemApplicationSetPagesDialog">
+                    <ul id="SystemApplicationSetPages2" class="am-pagination tpl-pagination"></ul>
+                </div>
+                <ul id="SystemApplicationSetPages" class="am-pagination tpl-pagination"></ul>
+
+            </div>
+
+        </div>
+
+        <div id="SystemApplicationSetMessage" class="DeleteConfirm">
+            <div class="am-modal-dialog" style="top:100px;">
+                <div class="am-modal-hd" style="color: #000000">角色信息数据</div>
+                <div class="am-modal-bd" style="color: #000000">
+                    你，确定要删除这条记录吗？
+                </div>
+                <div class="am-modal-footer">
+                    <span class="am-modal-btn" onclick="SystemApplicationSetNOMessage();">取消</span> <span id="SystemApplicationSetOKDelete" class="am-modal-btn">确定</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div id="SystemApplicationSetEditPage" class="am-g tpl-g" style="display: none;">
+		<div class="container-fluid am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+					<div class="page-header-heading">
+						<span class="am-icon-home page-header-heading-icon"></span> 系统应用表单 <small>SystemApplication
+							Form</small>
+					</div>
+					<p class="page-header-description">填写应用基本信息。</p>
+				</div>
+				<div class="am-u-lg-3" style="width: 50px">
+					<a href="javascript:SystemApplicationSetEditClose();"
+						class="am-close am-close-alt am-close-spin am-icon-times"></a>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row-content am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+					<div class="widget am-cf">
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">系统应用</div>
+							<div class="widget-function am-fr">
+								<a href="javascript:;" class="am-icon-cog"></a>
+							</div>
+						</div>
+						<div class="widget-body am-fr">
+
+							<form class="am-form tpl-form-line-form">
+								<div class="am-form-group">
+									<label for="user-name" class="am-u-sm-3 am-form-label">应用编码
+										<span class="tpl-form-line-small-title">ApplicationCode</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" class="tpl-form-input" id="SystemApplicationCode"
+											placeholder="请输入应用编码字符"> <small>请填写应用编码4字符。</small>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">应用名称
+										<span class="tpl-form-line-small-title">ApplicationName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemApplicationName" class="tpl-form-input"
+											placeholder="应用名称"> <small>请填写应用名称。</small>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">应用图标
+										<span class="tpl-form-line-small-title">ApplicationIcon</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemApplicationIcon" class="tpl-form-input"
+											placeholder="应用图标"> <small>请填写应用图标。</small>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">应用级别
+										<span class="tpl-form-line-small-title">ApplicationGrade</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemApplicationGrade" class="tpl-form-input"
+											placeholder="应用级别"> <small>请填写应用级别。</small>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">应用URL
+										<span class="tpl-form-line-small-title">ApplicationURL</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemApplicationURL" class="tpl-form-input"
+											placeholder="应用URL"> <small>请填写应用URL。</small>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">显示位置
+										<span class="tpl-form-line-small-title">ApplicationPosition</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemApplicationPosition" class="tpl-form-input"
+											placeholder="显示位置"> <small>请填写显示位置。</small>
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-intro" class="am-u-sm-3 am-form-label">启用应用</label>
+									<div class="am-u-sm-9">
+										<div class="tpl-switch">
+											<input type="checkbox" id="SystemRoleDeleteFlag"
+												class="ios-switch bigswitch tpl-switch-btn" checked="">
+											<div class="tpl-switch-btn-view">
+												<div></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3">
+										<button type="button" onclick="SystemApplicationSetSaveData();"
+											class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
