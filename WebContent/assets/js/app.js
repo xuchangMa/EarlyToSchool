@@ -438,7 +438,7 @@ function GetTabs(url){
 	return datas;
 }
 //定义全局的页面数据展示行数
-var PageNumber = 5;
+var PageNumber = 10;
 
 //打开所有页码
 function OpenPages(Id) {

@@ -8,10 +8,20 @@
 	public static String Id;	
 	//角色编码
 	public static String RoleCode;	
-	//角色权限
-	public static String RoleAuthorization;
-	//是否生效
-	public static String DeleteFlag;
+	//角色名称
+	public static String RoleName;
+	//查看
+	public static String View;
+	//新增&修改
+	public static String AddUpdate;
+	//删除
+	public static String Delete;
+	//导入&导出
+	public static String ImportExport;
+	//上传
+	public static String Upload;
+	//下载
+	public static String Download;
 }
  */
 var tableName = "RoleConfiguration";

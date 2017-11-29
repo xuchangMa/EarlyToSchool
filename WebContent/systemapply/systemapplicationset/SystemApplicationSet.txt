@@ -1,0 +1,207 @@
+/* 1 */
+{
+    "_id" : ObjectId("5a1e46045d0c7b2ea4e22bdf"),
+    "ApplicationCode" : "A0001",
+    "ApplicationName" : "我的课程",
+    "ApplicationIcon" : "am-icon-book",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "1",
+    "DeleteFlag" : "0"
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("5a1e49265d0c7b2ea4e22be7"),
+    "ApplicationCode" : "A0002",
+    "ApplicationName" : "课程扩展",
+    "ApplicationIcon" : "am-icon-stack-overflow",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "2",
+    "DeleteFlag" : "0"
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("5a1e49a45d0c7b2ea4e22bea"),
+    "ApplicationCode" : "A0003",
+    "ApplicationName" : "资料中心",
+    "ApplicationIcon" : "am-icon-list",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "3",
+    "DeleteFlag" : "0"
+}
+
+/* 4 */
+{
+    "_id" : ObjectId("5a1e4b845d0c7b2ea4e22bed"),
+    "ApplicationCode" : "A0004",
+    "ApplicationName" : "考试安排",
+    "ApplicationIcon" : "am-icon-edit",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "4",
+    "DeleteFlag" : "0"
+}
+
+/* 5 */
+{
+    "_id" : ObjectId("5a1e4c265d0c7b2ea4e22bf0"),
+    "ApplicationCode" : "A0005",
+    "ApplicationName" : "学校管理",
+    "ApplicationIcon" : "am-icon-graduation-cap",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "0",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "5",
+    "DeleteFlag" : "0"
+}
+
+/* 6 */
+{
+    "_id" : ObjectId("5a1e4d995d0c7b2ea4e22bf3"),
+    "ApplicationCode" : "A0006",
+    "ApplicationName" : "放松时刻",
+    "ApplicationIcon" : "am-icon-coffee",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "6",
+    "DeleteFlag" : "0"
+}
+
+/* 7 */
+{
+    "_id" : ObjectId("5a1e4e065d0c7b2ea4e22bf6"),
+    "ApplicationCode" : "A0007",
+    "ApplicationName" : "系统设置",
+    "ApplicationIcon" : "am-icon-cog",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "0",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "7",
+    "DeleteFlag" : "0"
+}
+
+/* 8 */
+{
+    "_id" : ObjectId("5a1e4f195d0c7b2ea4e22bf9"),
+    "ApplicationCode" : "A0008",
+    "ApplicationName" : "论坛",
+    "ApplicationIcon" : "am-icon-linkedin-square",
+    "ApplicationGrade" : "1",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "8",
+    "DeleteFlag" : "0"
+}
+
+/* 9 */
+{
+    "_id" : ObjectId("5a1e540d5d0c7b2ea4e22bfd"),
+    "ApplicationCode" : "A1001",
+    "ApplicationName" : "学校信息",
+    "ApplicationIcon" : "am-icon-scribd",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "1",
+    "DeleteFlag" : "0"
+}
+
+/* 10 */
+{
+    "_id" : ObjectId("5a1e557f5d0c7b2ea4e22c00"),
+    "ApplicationCode" : "A1002",
+    "ApplicationName" : "班级信息",
+    "ApplicationIcon" : "am-icon-map-signs",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "2",
+    "DeleteFlag" : "0"
+}
+
+/* 11 */
+{
+    "_id" : ObjectId("5a1e55a85d0c7b2ea4e22c03"),
+    "ApplicationCode" : "A1003",
+    "ApplicationName" : "教师信息",
+    "ApplicationIcon" : "am-icon-male",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "3",
+    "DeleteFlag" : "0"
+}
+
+/* 12 */
+{
+    "_id" : ObjectId("5a1e56325d0c7b2ea4e22c06"),
+    "ApplicationCode" : "A1004",
+    "ApplicationName" : "学生信息",
+    "ApplicationIcon" : "am-icon-group",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "4",
+    "DeleteFlag" : "0"
+}
+
+/* 13 */
+{
+    "_id" : ObjectId("5a1e57fe5d0c7b2ea4e22c0b"),
+    "ApplicationCode" : "A2001",
+    "ApplicationName" : "应用中心",
+    "ApplicationIcon" : "am-icon-instagram",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "../systemapply/systemapplicationset/app.html",
+    "ApplicationPosition" : "1",
+    "DeleteFlag" : "0"
+}
+
+/* 14 */
+{
+    "_id" : ObjectId("5a1e59125d0c7b2ea4e22c0e"),
+    "ApplicationCode" : "A2002",
+    "ApplicationName" : "角色信息",
+    "ApplicationIcon" : "am-icon-sitemap",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "../systemapply/systemrole/app.html",
+    "ApplicationPosition" : "2",
+    "DeleteFlag" : "0"
+}
+
+/* 15 */
+{
+    "_id" : ObjectId("5a1e59a85d0c7b2ea4e22c13"),
+    "ApplicationCode" : "A2003",
+    "ApplicationName" : "应用权限",
+    "ApplicationIcon" : "am-icon-chain-broken",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "",
+    "ApplicationPosition" : "3",
+    "DeleteFlag" : "0"
+}
+
+/* 16 */
+{
+    "_id" : ObjectId("5a1e5a085d0c7b2ea4e22c16"),
+    "ApplicationCode" : "A2004",
+    "ApplicationName" : "用户信息",
+    "ApplicationIcon" : "am-icon-user",
+    "ApplicationGrade" : "2",
+    "MountFlag" : "1",
+    "ApplicationURL" : "../systemapply/systemuser/app.html",
+    "ApplicationPosition" : "4",
+    "DeleteFlag" : "0"
+}

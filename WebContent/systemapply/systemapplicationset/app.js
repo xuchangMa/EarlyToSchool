@@ -11,9 +11,11 @@
 	//应用名称
 	public static String ApplicationName;		
 	//应用图标
-	public static String ApplicationIcon;	
+	public static String ApplicationIcon;
 	//应用级别
 	public static String ApplicationGrade;
+	//是否挂载
+	public static String MountFlag;
 	//应用URL
 	public static String ApplicationURL;
 	//显示位置(1：在网站内打开标签页，2：覆盖当前网站，3：跳转出新页面)
@@ -164,6 +166,12 @@ function BandingSystemApplicationSetData(IndexPage) {
 		data += "<td>" + SystemApplicationSetSelectData[i].ApplicationName + "</td>";
 		data += "<td><i class=\"" + SystemApplicationSetSelectData[i].ApplicationIcon + " sidebar-nav-link-logo\"></i></td>";
 		data += "<td>" + SystemApplicationSetSelectData[i].ApplicationGrade + "</td>";
+		var Mimg = "../assets/i/ico_no.png";
+		if (SystemApplicationSetSelectData[i].MountFlag == 0) {
+			Mimg = "../assets/i/ico_yes.png";
+		}
+		data += "<td><img src = '" + Mimg
+		+ "' style=\"width: 15px; vertical-align: middle;\" /></td>";
 		data += "<td>" + SystemApplicationSetSelectData[i].ApplicationURL + "</td>";
 		data += "<td>" + SystemApplicationSetSelectData[i].ApplicationPosition + "</td>";
 		var img = "../assets/i/ico_no.png";
@@ -175,7 +183,8 @@ function BandingSystemApplicationSetData(IndexPage) {
 				+ SystemApplicationSetSelectData[i].ApplicationCode + "',ApplicationName:'"
 				+ SystemApplicationSetSelectData[i].ApplicationName + "',ApplicationIcon:'"
 				+ SystemApplicationSetSelectData[i].ApplicationIcon + "',ApplicationGrade:'"
-				+ SystemApplicationSetSelectData[i].ApplicationGrade + "',ApplicationURL:'"
+				+ SystemApplicationSetSelectData[i].ApplicationGrade + "',MountFlag:'"
+				+ SystemApplicationSetSelectData[i].MountFlag + "',ApplicationURL:'"
 				+ SystemApplicationSetSelectData[i].ApplicationURL + "',ApplicationPosition:'"
 				+ SystemApplicationSetSelectData[i].ApplicationPosition + "',DeleteFlag:'"
 				+ SystemApplicationSetSelectData[i].DeleteFlag + "'}]";
@@ -254,6 +263,7 @@ function SystemApplicationSetEditFunc(data) {
 		$("#SystemApplicationName").val("");
 		$("#SystemApplicationIcon").val("");
 		$("#SystemApplicationGrade").val("");
+		$("#SystemMountFlag").prop("checked", "checked");	
 		$("#SystemApplicationURL").val("");
 		$("#SystemApplicationPosition").val("");
 		$("#SystemRoleDeleteFlag").prop("checked", "checked");
@@ -264,6 +274,11 @@ function SystemApplicationSetEditFunc(data) {
 		$("#SystemApplicationName").val(data[0].ApplicationName);
 		$("#SystemApplicationIcon").val(data[0].ApplicationIcon);
 		$("#SystemApplicationGrade").val(data[0].ApplicationGrade);
+		if (data[0].MountFlag == 0) {
+			$("#SystemMountFlag").prop("checked", "checked");
+		} else {
+			$("#SystemMountFlag").prop("checked", "");
+		}
 		$("#SystemApplicationURL").val(data[0].ApplicationURL);
 		$("#SystemApplicationPosition").val(data[0].ApplicationPosition);
 		if (data[0].DeleteFlag == 0) {
@@ -288,6 +303,10 @@ function SystemApplicationSetSaveData() {
 	if (!$("#SystemRoleDeleteFlag").is(':checked')) {
 		df = "1";
 	}
+	var Mdf = "0";
+	if (!$("#SystemMountFlag").is(':checked')) {
+		Mdf = "1";
+	}
 	if (SystemApplicationSetFromState == "I") {
 	    url = "../SystemApplicationSet/InsertSystemApplicationSet";
 		da = {
@@ -295,6 +314,7 @@ function SystemApplicationSetSaveData() {
 			"ApplicationName" : $("#SystemApplicationName").val(),
 			"ApplicationIcon" : $("#SystemApplicationIcon").val(),
 			"ApplicationGrade" : $("#SystemApplicationGrade").val(),
+			"MountFlag" : Mdf,
 			"ApplicationURL" : $("#SystemApplicationURL").val(),
 			"ApplicationPosition" : $("#SystemApplicationPosition").val(),
 			"DeleteFlag" : df
@@ -306,6 +326,7 @@ function SystemApplicationSetSaveData() {
 			"ApplicationName" : $("#SystemApplicationName").val(),
 			"ApplicationIcon" : $("#SystemApplicationIcon").val(),
 			"ApplicationGrade" : $("#SystemApplicationGrade").val(),
+			"MountFlag" : Mdf,
 			"ApplicationURL" : $("#SystemApplicationURL").val(),
 			"ApplicationPosition" : $("#SystemApplicationPosition").val(),
 			"DeleteFlag" : df
