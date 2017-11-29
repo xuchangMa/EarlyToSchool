@@ -208,7 +208,7 @@ function SystemApplicationSetBandingPages() {
     var PagesData = "<li><a href=\"javascript:BandingSystemApplicationSetData(" + 1
 			+ ") \">«</a></li>";
 	var Pages2Data = "";
-	var Pages = Math.ceil(SystemApplicationSetData.length / PageNumber);
+	var Pages = Math.ceil(SystemApplicationSetSelectData.length / PageNumber);
 	if (Pages <= 5) {
 		for (var i = 0; i < Pages; i++) {
 			var ind = i + 1;

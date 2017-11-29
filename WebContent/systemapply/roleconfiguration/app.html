@@ -1,0 +1,110 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="../assets/css/appcustom.css">
+<div id="roleform" class="widget-body  am-fr">
+	<script src="../systemapply/roleconfiguration/app.js"></script>
+	<div id="SystemApplicationSetShowPage">
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+			<div class="am-form-group">
+				<div class="am-btn-toolbar">
+					<div class="am-btn-group am-btn-group-xs">
+						<select data-am-selected="{btnSize: 'sm'}">
+							<option value="option1">所有类别</option>
+							<option value="option2">应用编码</option>
+							<option value="option3">应用名称</option>
+							<option value="option4">应用级别</option>
+						</select>
+						
+					</div>
+					<button type="button" onclick="SystemApplicationSetSaveData();"
+							class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+				</div>
+			</div>
+		</div>
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+			<div class="am-form-group tpl-table-list-select">
+				<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+					<option value="option1">所有类别</option>
+					<option value="option2">应用编码</option>
+					<option value="option3">应用名称</option>
+					<option value="option4">应用级别</option>
+				</select>
+				<div class="am-selected am-dropdown" data-am-dropdown="">
+					<button
+						class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+						type="button" onclick="SystemApplicationSetselected();">
+						<span id="SystemApplicationSetshowselected"
+							class="am-selected-status am-fl">所有类别</span> <i
+							class="am-selected-icon am-icon-caret-down"> </i>
+					</button>
+
+					<div id="SystemApplicationSetselect"
+						class="am-selected-content am-dropdown-content"
+						style="min-width: 200px; display: none;">
+						<ul class="am-selected-list">
+							<li class="" data-index="0" data-group="0"
+								onclick="SystemApplicationSetoption('所有类别')"><span
+								class="am-selected-text">所有类别</span> <i class="am-icon-check"></i>
+							</li>
+							<li class="" data-index="1" data-group="0"
+								onclick="SystemApplicationSetoption('应用编码')"><span
+								class="am-selected-text">应用编码</span> <i class="am-icon-check"></i>
+							</li>
+							<li class="" data-index="2" data-group="0"
+								onclick="SystemApplicationSetoption('应用名称')"><span
+								class="am-selected-text">应用名称</span> <i class="am-icon-check"></i>
+							</li>
+							<li class="" data-index="3" data-group="0"
+								onclick="SystemApplicationSetoption('应用级别')"><span
+								class="am-selected-text">应用级别</span> <i class="am-icon-check"></i>
+							</li>
+
+						</ul>
+						<div class="am-selected-hint"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+			<div
+				class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+				<input id="SystemApplicationSetSeleVal" type="text"
+					class="am-form-field "> <span class="am-input-group-btn">
+					<button
+						class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+						onclick="GetSystemApplicationSetQuery();" type="button"></button>
+				</span>
+			</div>
+		</div>
+
+		<div class="am-u-sm-12">
+			<table width="100%"
+				class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
+				id="example-r">
+				<thead>
+					<tr>
+						<th>应用编码</th>
+						<th>应用名称</th>
+						<th>查看</th>
+						<th>新增&修改</th>
+						<th>删除</th>
+						<th>导入&导出</th>
+						<th>上传</th>
+						<th>下载</th>
+					</tr>
+				</thead>
+				<tbody id="SystemApplicationSetData"></tbody>
+			</table>
+		</div>
+		<div class="am-u-lg-12 am-cf">
+			<div class="am-fr">
+				<div class="PagesDialog" id="SystemApplicationSetPagesDialog">
+					<ul id="SystemApplicationSetPages2"
+						class="am-pagination tpl-pagination"></ul>
+				</div>
+				<ul id="SystemApplicationSetPages"
+					class="am-pagination tpl-pagination"></ul>
+
+			</div>
+		</div>
+	</div>
+</div>
