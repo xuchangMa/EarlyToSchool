@@ -154,6 +154,7 @@ function BandingSystemApplicationSetData(IndexPage) {
 	if (IndexPage > Math.ceil(SystemApplicationSetSelectData.length / PageNumber)) {
 		IndexPage = Math.ceil(SystemApplicationSetSelectData.length / PageNumber);
 	}
+	if(IndexPage==0){return;}
 	// 赋值当前页码
 	SystemApplicationSetIndexPage = IndexPage;
 

@@ -113,6 +113,7 @@ function BandingRoleData(IndexPage) {
 	if (IndexPage > Math.ceil(SystemRoleSelectData.length / PageNumber)) {
 		IndexPage = Math.ceil(SystemRoleSelectData.length / PageNumber);
 	}
+	if(IndexPage==0){return;}
 	// 赋值当前页码
 	SystemRoleIndexPage = IndexPage;
 

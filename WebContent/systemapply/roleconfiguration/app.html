@@ -2,13 +2,12 @@
 <link rel="stylesheet" href="../assets/css/appcustom.css">
 <div id="roleform" class="widget-body  am-fr">
 	<script src="../systemapply/roleconfiguration/app.js"></script>
-	<div id="SystemApplicationSetShowPage">
+	<div id="RoleConfigurationShowPage">
 		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 			<div class="am-form-group">
 				<div class="am-btn-toolbar">
 					<div class="am-btn-group am-btn-group-xs">
-						<button type="button" onclick="SystemApplicationSetSaveData();"
-							class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+						
 					</div>
 					
 				</div>
@@ -25,17 +24,17 @@
 				<div class="am-selected am-dropdown" data-am-dropdown="">
 					<button
 						class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
-						type="button" onclick="SystemApplicationSetselected();">
-						<span id="SystemApplicationSetshowselected"
+						type="button" onclick="RoleConfigurationselected();">
+						<span id="RoleConfigurationshowselected"
 							class="am-selected-status am-fl">所有类别</span> <i
 							class="am-selected-icon am-icon-caret-down"> </i>
 					</button>
 
-					<div id="SystemApplicationSetselect"
+					<div id="RoleConfigurationselect"
 						class="am-selected-content am-dropdown-content"
 						style="min-width: 200px; display: none;">
-						<ul class="am-selected-list">
-							<li class="" data-index="0" data-group="0"
+						<ul id="RoleConfigurationselectUi" class="am-selected-list">
+							<!-- <li class="" data-index="0" data-group="0"
 								onclick="SystemApplicationSetoption('所有类别')"><span
 								class="am-selected-text">所有类别</span> <i class="am-icon-check"></i>
 							</li>
@@ -51,7 +50,7 @@
 								onclick="SystemApplicationSetoption('应用级别')"><span
 								class="am-selected-text">应用级别</span> <i class="am-icon-check"></i>
 							</li>
-
+ -->
 						</ul>
 						<div class="am-selected-hint"></div>
 					</div>
@@ -61,11 +60,11 @@
 		<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
 			<div
 				class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-				<input id="SystemApplicationSetSeleVal" type="text"
+				<input id="RoleConfigurationSeleVal" type="text"
 					class="am-form-field "> <span class="am-input-group-btn">
 					<button
 						class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-						onclick="GetSystemApplicationSetQuery();" type="button"></button>
+						onclick="RoleConfigurationQuery();" type="button"></button>
 				</span>
 			</div>
 		</div>
@@ -86,16 +85,16 @@
 						<th>下载</th>
 					</tr>
 				</thead>
-				<tbody id="SystemApplicationSetData"></tbody>
+				<tbody id="SystemRoleConfigurationData"></tbody>
 			</table>
 		</div>
 		<div class="am-u-lg-12 am-cf">
 			<div class="am-fr">
-				<div class="PagesDialog" id="SystemApplicationSetPagesDialog">
-					<ul id="SystemApplicationSetPages2"
+				<div class="PagesDialog" id="RoleConfigurationPagesDialog">
+					<ul id="RoleConfigurationPages2"
 						class="am-pagination tpl-pagination"></ul>
 				</div>
-				<ul id="SystemApplicationSetPages"
+				<ul id="RoleConfigurationPages"
 					class="am-pagination tpl-pagination"></ul>
 
 			</div>
