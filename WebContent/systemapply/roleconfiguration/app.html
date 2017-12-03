@@ -1,6 +1,6 @@
-<meta charset="utf-8">
+﻿<meta charset="utf-8">
 <link rel="stylesheet" href="../assets/css/appcustom.css">
-<div id="roleform" class="widget-body  am-fr">
+<div id="roleconfigurationform" class="widget-body  am-fr">
 	<script src="../systemapply/roleconfiguration/app.js"></script>
 	<div id="RoleConfigurationShowPage">
 		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
@@ -14,59 +14,27 @@
 			</div>
 		</div>
 		<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-			<div class="am-form-group tpl-table-list-select">
-				<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
-					<option value="option1">所有类别</option>
-					<option value="option2">应用编码</option>
-					<option value="option3">应用名称</option>
-					<option value="option4">应用级别</option>
-				</select>
-				<div class="am-selected am-dropdown" data-am-dropdown="">
-					<button
-						class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
-						type="button" onclick="RoleConfigurationselected();">
-						<span id="RoleConfigurationshowselected"
-							class="am-selected-status am-fl">所有类别</span> <i
-							class="am-selected-icon am-icon-caret-down"> </i>
-					</button>
-
-					<div id="RoleConfigurationselect"
-						class="am-selected-content am-dropdown-content"
-						style="min-width: 200px; display: none;">
-						<ul id="RoleConfigurationselectUi" class="am-selected-list">
-							<!-- <li class="" data-index="0" data-group="0"
-								onclick="SystemApplicationSetoption('所有类别')"><span
-								class="am-selected-text">所有类别</span> <i class="am-icon-check"></i>
-							</li>
-							<li class="" data-index="1" data-group="0"
-								onclick="SystemApplicationSetoption('应用编码')"><span
-								class="am-selected-text">应用编码</span> <i class="am-icon-check"></i>
-							</li>
-							<li class="" data-index="2" data-group="0"
-								onclick="SystemApplicationSetoption('应用名称')"><span
-								class="am-selected-text">应用名称</span> <i class="am-icon-check"></i>
-							</li>
-							<li class="" data-index="3" data-group="0"
-								onclick="SystemApplicationSetoption('应用级别')"><span
-								class="am-selected-text">应用级别</span> <i class="am-icon-check"></i>
-							</li>
- -->
-						</ul>
-						<div class="am-selected-hint"></div>
-					</div>
-				</div>
-			</div>
+			<div style="text-align:right;"><span>选择配置角色</span></div>
 		</div>
 		<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-			<div
-				class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-				<input id="RoleConfigurationSeleVal" type="text"
-					class="am-form-field "> <span class="am-input-group-btn">
-					<button
-						class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-						onclick="RoleConfigurationQuery();" type="button"></button>
-				</span>
-			</div>
+            <div class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+                <div class="am-form-group tpl-table-list-select">                    
+                    <div class="am-selected am-dropdown" data-am-dropdown="">
+                        <button class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+                                type="button" onclick="RoleConfigurationselected();">
+                            <span id="RoleConfigurationshowselected"
+                                  class="am-selected-status am-fl"></span> <i class="am-selected-icon am-icon-caret-down"></i>
+                        </button>
+
+                        <div id="RoleConfigurationselect"
+                             class="am-selected-content am-dropdown-content"
+                             style="min-width: 200px; display: none;">
+                            <ul id="RoleConfigurationselectUi" class="am-selected-list"></ul>
+                            <div class="am-selected-hint"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 
 		<div class="am-u-sm-12">

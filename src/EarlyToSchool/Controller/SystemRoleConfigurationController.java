@@ -17,4 +17,10 @@ public class SystemRoleConfigurationController {
 		public @ResponseBody String GetRoleConfiguration(HttpServletRequest request) {
 			return SystemRoleConfigurationManage.SystemRoleConfigurationList();
 		}
+		// 修改一条数据
+		@RequestMapping("/UpdateRoleConfiguration")
+		public @ResponseBody String UpdateRole(HttpServletRequest request) {
+			return SystemRoleConfigurationManage.UpdateRoleConfigurationData(request);
+		}
+
 }

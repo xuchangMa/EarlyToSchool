@@ -12,7 +12,7 @@ public class MongoDataBase {
 	static String host = "localhost";
 	static int port = 27017;
 	static String databaseName = "EarlyToSchoolDB";
-	
+
 	// 获取数据库服务
 	static DB GetDataBaseServer() {
 		DB mongoDatabase = null;
@@ -27,7 +27,7 @@ public class MongoDataBase {
 		}
 		return mongoDatabase;
 	}
-	
+
 	// 查询表所有数据
 	// 表名：TableName
 	// 修改条件：query/query=null,查询所有
@@ -45,6 +45,22 @@ public class MongoDataBase {
 		collection = null;
 		// 返回数据集
 		return cursor;
+	}
+
+	// 查询表所有数据
+	// 表名：TableName
+	public static DBCollection ConditionQuery(String TableName) {
+		// 获取数据库服务
+		DB mongoDatabase = GetDataBaseServer();
+		if (mongoDatabase == null) {
+			return null;
+		}
+		// 获取数据表服务
+		DBCollection collection = mongoDatabase.getCollection(TableName);
+		// 清空对象
+		mongoDatabase = null;
+		// 返回数据集
+		return collection;
 	}
 
 	// 插入数据集

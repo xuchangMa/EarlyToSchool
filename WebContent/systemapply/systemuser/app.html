@@ -1,245 +1,261 @@
 ﻿<link rel="stylesheet" href="../assets/css/appcustom.css">
-<div id="userform" class="widget-body  am-fr">
+<div id="systemuserform" class="widget-body  am-fr">
 	<script src="../systemapply/systemuser/app.js"></script>
-	<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
-		<div class="am-form-group">
-			<div class="am-btn-toolbar">
-				<div class="am-btn-group am-btn-group-xs">
-					<button type="button" class="am-btn am-btn-default am-btn-success"
-						onclick="Edit();">
-						<span class="am-icon-plus"></span> 新增
-					</button>
-					<button type="button"
-						class="am-btn am-btn-default am-btn-secondary">
-						<span class="am-icon-save"></span> 保存
-					</button>
-					<button type="button" class="am-btn am-btn-default am-btn-warning">
-						<span class="am-icon-archive"></span> 审核
-					</button>
-					<button type="button" class="am-btn am-btn-default am-btn-danger">
-						<span class="am-icon-trash-o"></span> 删除
-					</button>
+	<div id="SystemUserShowPage">
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
+			<div class="am-form-group">
+				<div class="am-btn-toolbar">
+					<div class="am-btn-group am-btn-group-xs">
+						<button type="button" class="am-btn am-btn-default am-btn-success"
+							onclick="SystemUserEditFunc(null);">
+							<span class="am-icon-plus"></span> 新增
+						</button>
+						<button type="button" class="am-btn am-btn-default am-btn-warning">
+							<span class="am-icon-archive"></span> 高级查询
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
-		<div class="am-form-group tpl-table-list-select">
-			<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
-				<option value="option1">所有类别</option>
-				<option value="option2">IT业界</option>
-				<option value="option3">数码产品</option>
-				<option value="option3">笔记本电脑</option>
-				<option value="option3">平板电脑</option>
-				<option value="option3">只能手机</option>
-				<option value="option3">超极本</option>
-			</select>
-			<div class="am-selected am-dropdown" data-am-dropdown="">
-				<button
-					class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
-					type="button" onclick="selected();">
-					<span id="showselected" class="am-selected-status am-fl">所有类别</span>
-					<i class="am-selected-icon am-icon-caret-down"> </i>
-				</button>
+		<div class="am-u-sm-12 am-u-md-6 am-u-lg-3">
+			<div class="am-form-group tpl-table-list-select">
+				<select data-am-selected="{btnSize: 'sm'}" style="display: none;">
+					<option value="option1">所有类别</option>
+				</select>
+				<div class="am-selected am-dropdown" data-am-dropdown="">
+					<button
+						class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+						type="button" onclick="SystemUserselected();">
+						<span id="SystemUsershowselected" class="am-selected-status am-fl">所有类别</span>
+						<i class="am-selected-icon am-icon-caret-down"> </i>
+					</button>
 
-				<div id="select1" class="am-selected-content am-dropdown-content"
-					style="min-width: 200px; display: none;">
-					<ul class="am-selected-list">
-						<li class="" data-index="0" data-group="0"
-							onclick="option('所有类别')"><span class="am-selected-text">所有类别</span>
-							<i class="am-icon-check"></i></li>
-						<li class="" data-index="1" data-group="0"
-							onclick="option('IT业界')"><span class="am-selected-text">IT业界</span>
-							<i class="am-icon-check"></i></li>
-						<li class="" data-index="2" data-group="0"
-							onclick="option('数码产品')"><span class="am-selected-text">数码产品</span>
-							<i class="am-icon-check"></i></li>
-						<li class="" data-index="3" data-group="0"
-							onclick="option('笔记本电脑')"><span class="am-selected-text">笔记本电脑</span>
-							<i class="am-icon-check"></i></li>
+					<div id="SystemUserselect"
+						class="am-selected-content am-dropdown-content"
+						style="min-width: 200px; display: none;">
+						<ul class="am-selected-list">
+							<li class="" data-index="0" data-group="0"
+								onclick="SystemUseroption('所有类别')"><span
+								class="am-selected-text">所有类别</span> <i class="am-icon-check"></i></li>
+						</ul>
+						<div class="am-selected-hint"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
+			<div
+				class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
+				<input id="SystemUserSeleVal" type="text" class="am-form-field ">
+				<span class="am-input-group-btn">
+					<button
+						class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
+						onclick="GetSystemUserQuery();" type="button"></button>
+				</span>
+			</div>
+		</div>
 
+		<div class="am-u-sm-12">
+			<table width="100%"
+				class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
+				id="example-r">
+				<thead>
+					<tr>
+						<th>学校名称</th>
+						<th>班级名称</th>
+						<th>角色名称</th>
+						<th>用户编码</th>
+						<th>用户名称</th>
+						<th>角色编码</th>
+						<th>身份证号</th>
+						<th>用户性别</th>
+						<th>用户年龄</th>
+						<th>用户归属地</th>
+						<th style="width: 80px;">是否生效</th>
+						<th style="width: 130px;">操作</th>
+					</tr>
+				</thead>
+				<tbody id="SystemUserData"></tbody>
+			</table>
+		</div>
+		<div class="am-u-lg-12 am-cf">
+			<div class="am-fr">
+				<div class="PagesDialog" id="SystemUserPagesDialog">
+					<ul id="SystemUserPages2" class="am-pagination tpl-pagination">
 					</ul>
-					<div class="am-selected-hint"></div>
+				</div>
+				<ul id="SystemUserPages" class="am-pagination tpl-pagination">
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div id="SystemUserMessage" class="DeleteConfirm">
+			<div class="am-modal-dialog" style="top: 100px;">
+				<div class="am-modal-hd" style="color: #000000">用户信息数据</div>
+				<div class="am-modal-bd" style="color: #000000">你，确定要删除这条记录吗？
+				</div>
+				<div class="am-modal-footer">
+					<span class="am-modal-btn" onclick="SystemUserNOMessage();">取消</span>
+					<span id="SystemUserOKDelete" class="am-modal-btn">确定</span>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="am-u-sm-12 am-u-md-12 am-u-lg-3">
-		<div
-			class="am-input-group am-input-group-sm tpl-form-border-form cl-p">
-			<input type="text" class="am-form-field "> <span
-				class="am-input-group-btn">
-				<button
-					class="am-btn  am-btn-default am-btn-success tpl-table-list-field am-icon-search"
-					type="button"></button>
-			</span>
-		</div>
-	</div>
 
-	<div class="am-u-sm-12">
-		<table width="100%"
-			class="am-table am-table-hover am-table-compact am-table-striped tpl-table-black "
-			id="example-r">
-			<thead>
-				<tr>
-					<th>文章标题</th>
-					<th>作者</th>
-					<th>时间</th>
-					<th>操作</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="gradeX">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="gradeX">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-
-				<tr class="gradeX">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-
-				<tr class="even gradeC">
-					<td>Amaze UI 模式窗口</td>
-					<td>张鹏飞</td>
-					<td>2016-09-26</td>
-					<td>
-						<div class="tpl-table-black-operation">
-							<a href="javascript:;"> <i class="am-icon-pencil"></i> 编辑
-							</a> <a href="javascript:;" class="tpl-table-black-operation-del">
-								<i class="am-icon-trash"></i> 删除
-							</a>
-						</div>
-					</td>
-				</tr>
-				<!-- more data -->
-			</tbody>
-		</table>
-	</div>
-	<div class="am-u-lg-12 am-cf">
-		<div class="am-fr">
-			<div class="PagesDialog" style="">
-				<em></em><span></span>CSS气泡框实现
+	<div id="SystemUserEditPage" class="am-g tpl-g" style="display: none;">
+		<div class="container-fluid am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-9">
+					<div class="page-header-heading">
+						<span class="am-icon-home page-header-heading-icon"></span> 用户表单 <small>User
+							Form</small>
+					</div>
+					<p class="page-header-description">填写用户基本信息。</p>
+				</div>
+				<div class="am-u-lg-3" style="width: 50px">
+					<a href="javascript:SystemUserEditClose();"
+						class="am-close am-close-alt am-close-spin am-icon-times"></a>
+				</div>
 			</div>
-			<ul class="am-pagination tpl-pagination">
-				<li class="am-disabled"><a href="#">«</a></li>
-				<li class="am-active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">...</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#">»</a></li>
-			</ul>
+
+		</div>
+
+		<div class="row-content am-cf">
+			<div class="row">
+				<div class="am-u-sm-12 am-u-md-12 am-u-lg-12">
+					<div class="widget am-cf">
+						<div class="widget-head am-cf">
+							<div class="widget-title am-fl">用户信息</div>
+							<div class="widget-function am-fr">
+								<a href="javascript:;" class="am-icon-cog"></a>
+							</div>
+						</div>
+						<div class="widget-body am-fr">
+
+							<form class="am-form tpl-form-line-form">
+								<div class="am-form-group">
+									<label for="user-name" class="am-u-sm-3 am-form-label">学校名称
+										<span class="tpl-form-line-small-title">SchoolName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" class="tpl-form-input" id="SystemRoleCode"
+											placeholder="请选择所在学校">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">班级名称
+										<span class="tpl-form-line-small-title">ClassName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择班级名称">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">角色名称
+										<span class="tpl-form-line-small-title">RoleName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择角色名称">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">用户名称
+										<span class="tpl-form-line-small-title">UserName</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择用户名称">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">用户图标
+										<span class="tpl-form-line-small-title">UserIcon</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择用户图标">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">身份证号
+										<span class="tpl-form-line-small-title">UserIDNumber</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请输入身份证号">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">出生日期
+										<span class="tpl-form-line-small-title">UserDateOfBirth</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择出生日期">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">用户归属地
+										<span class="tpl-form-line-small-title">UserBelonging</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请选择用户归属地">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">用户密码
+										<span class="tpl-form-line-small-title">UserPassword</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请输入用户密码">
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-email" class="am-u-sm-3 am-form-label">确认密码
+										<span class="tpl-form-line-small-title">ConfirmPassword</span>
+									</label>
+									<div class="am-u-sm-9">
+										<input type="text" id="SystemRoleName" class="tpl-form-input"
+											placeholder="请输入确认密码">
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<label for="user-intro" class="am-u-sm-3 am-form-label">启用角色</label>
+									<div class="am-u-sm-9">
+										<div class="tpl-switch">
+											<input type="checkbox" id="SystemRoleDeleteFlag"
+												class="ios-switch bigswitch tpl-switch-btn" checked="">
+											<div class="tpl-switch-btn-view">
+												<div></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="am-form-group">
+									<div class="am-u-sm-9 am-u-sm-push-3">
+										<button type="button" onclick="RoleSaveData();"
+											class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+
+
 </div>
