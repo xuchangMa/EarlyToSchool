@@ -61,7 +61,6 @@ public class SystemApplicationSetManage {
 		doc.append("ApplicationPosition", ApplicationPosition);
 		doc.append("DeleteFlag", DeleteFlag);
 		if (MongoDataBase.Insert(TableName, doc)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemApplicationSetList();
 		} else {
 			return "No";
@@ -94,7 +93,6 @@ public class SystemApplicationSetManage {
 		newDocument.put("DeleteFlag", DeleteFlag);
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemApplicationSetList();
 		} else {
 			return "No";
@@ -112,7 +110,6 @@ public class SystemApplicationSetManage {
 		newDocument.put("DeleteFlag", "2");
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemApplicationSetList();
 		} else {
 			return "No";

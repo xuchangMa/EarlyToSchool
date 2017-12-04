@@ -117,7 +117,6 @@ public class SystemRoleConfigurationManage {
 				RoleConfiguration);
 		if (Configurationtable.count() > 0){
 			if (MongoDataBase.Update("SystemRoleConfiguration", RoleConfiguration, newDocument)) {
-				MongoDataBase.drop();//关闭数据库连接
 				return SystemRoleConfigurationList();
 			} else {
 				return "No";
@@ -125,7 +124,6 @@ public class SystemRoleConfigurationManage {
 		}
 		else{
 			if (MongoDataBase.Insert("SystemRoleConfiguration", newDocument)) {
-				MongoDataBase.drop();//关闭数据库连接
 				return SystemRoleConfigurationList();
 			} else {
 				return "No";

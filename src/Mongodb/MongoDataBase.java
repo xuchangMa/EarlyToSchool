@@ -88,6 +88,8 @@ public class MongoDataBase {
 			mongoDatabase = null;
 			// 插入数据集
 			collection.insert(documents);
+			//关闭数据连接
+			drop();
 			// 清空对象
 			collection = null;
 		} catch (Exception e) {
@@ -112,6 +114,8 @@ public class MongoDataBase {
 			mongoDatabase = null;
 			// 插入数据集
 			collection.insert(documents);
+			//关闭数据连接
+			drop();
 			// 清空对象
 			collection = null;
 		} catch (Exception e) {
@@ -144,6 +148,8 @@ public class MongoDataBase {
 			query = null;
 			newDocument = null;
 			updateObj = null;
+			//关闭数据连接
+			drop();
 		} catch (Exception e) {
 			return false;
 		}
@@ -169,6 +175,8 @@ public class MongoDataBase {
 			// 清空对象
 			collection = null;
 			query = null;
+			//关闭数据连接
+			drop();
 		} catch (Exception e) {
 			return false;
 		}

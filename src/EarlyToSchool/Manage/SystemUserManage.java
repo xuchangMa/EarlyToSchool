@@ -52,7 +52,6 @@ public class SystemUserManage {
 		doc.append("RoleName", RoleName);
 		doc.append("DeleteFlag", DeleteFlag);
 		if (MongoDataBase.Insert(TableName, doc)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemUserList();
 		} else {
 			return "No";
@@ -75,7 +74,6 @@ public class SystemUserManage {
 		newDocument.put("DeleteFlag", DeleteFlag);
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemUserList();
 		} else {
 			return "No";
@@ -93,7 +91,6 @@ public class SystemUserManage {
 		newDocument.put("DeleteFlag", "2");
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			MongoDataBase.drop();//关闭数据库连接
 			return GetSystemUserList();
 		} else {
 			return "No";
