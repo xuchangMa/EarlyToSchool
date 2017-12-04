@@ -1,7 +1,7 @@
 ﻿<meta charset="utf-8">
 <link rel="stylesheet" href="../assets/css/appcustom.css">
 <div id="systemuserform" class="widget-body  am-fr">
-    <script src="../assets/js/amazeui.min.js"></script>
+	<script src="../assets/js/amazeui.min.js"></script>
 	<script src="../systemapply/systemuser/app.js"></script>
 
 	<div id="SystemUserShowPage">
@@ -138,36 +138,24 @@
 
 							<form class="am-form tpl-form-line-form">
 								<div class="am-form-group">
-									<label for="user-name" class="am-u-sm-3 am-form-label">学校名称
-										<span class="tpl-form-line-small-title">SchoolName</span>
-									</label>
-									<div class="am-u-sm-9">
-										<input type="text" class="tpl-form-input" id="txtSchoolName"
-											placeholder="请选择所在学校"> <input type="text"
-											id="txtSchoolCode" style="display: none;">
-									</div>
-								</div>
-
-								<div class="am-form-group">
-									<label for="user-email" class="am-u-sm-3 am-form-label">班级名称
-										<span class="tpl-form-line-small-title">ClassName</span>
-									</label>
-									<div class="am-u-sm-9">
-										<input type="text" id="txtClassName" class="tpl-form-input"
-											placeholder="请选择班级名称"> <input type="text"
-											id="txtClassCode" style="display: none;">
-									</div>
-								</div>
-
-								<div class="am-form-group">
 									<label for="user-email" class="am-u-sm-3 am-form-label">角色名称
 										<span class="tpl-form-line-small-title">RoleName</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="txtRoleName" class="tpl-form-input"
-											placeholder="请选择角色名称"> <input type="text"
-											id="txtRoleCode" style="display: none;">
-                                       
+										<button
+											class="am-selected-btn am-btn am-dropdown-toggle am-btn-sm am-btn-default"
+											type="button" onclick="SystemUserRoleselected();">
+											<span id="SystemUserRoleshowselected"
+												class="am-selected-status am-fl"></span> <i
+												class="am-selected-icon am-icon-caret-down"></i>
+										</button>
+										<div id="SystemUserRoleselect"
+											class="am-selected-content am-dropdown-content"
+											style="min-width: 200px; display: none;">
+											<ul id="SystemUserRoleselectUl" class="am-selected-list"></ul>
+											<div class="am-selected-hint"></div>
+										</div>
+
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -203,10 +191,10 @@
 										<span class="tpl-form-line-small-title">UserDateOfBirth</span>
 									</label>
 									<div class="am-u-sm-9">
-                                        <!--<input type="text"  data-am-datepicker="" readonly=""
-                                               class="tpl-form-input" placeholder="请选择出生日期">-->
-                                        <input type="text" id="txtUserDateOfBirth" class="am-form-field tpl-form-no-bg" placeholder="出生日期" data-am-datepicker="" readonly="">
-                                        
+										<input type="text" id="txtUserDateOfBirth"
+											class="am-form-field tpl-form-no-bg" placeholder="出生日期"
+											data-am-datepicker="" readonly="">
+
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -238,10 +226,10 @@
 								</div>
 
 								<div class="am-form-group">
-									<label for="user-intro" class="am-u-sm-3 am-form-label">启用角色</label>
+									<label for="user-intro" class="am-u-sm-3 am-form-label">启用用户</label>
 									<div class="am-u-sm-9">
 										<div class="tpl-switch">
-											<input type="checkbox" id="txtRoleDeleteFlag"
+											<input type="checkbox" id="txtUserDeleteFlag"
 												class="ios-switch bigswitch tpl-switch-btn" checked="">
 											<div class="tpl-switch-btn-view">
 												<div></div>

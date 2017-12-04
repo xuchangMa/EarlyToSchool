@@ -76,12 +76,28 @@ function getSystemUserData() {
 		success : function(data) {
 			if (data != "") {
 				// 把查询数据赋值给js变量
-				SystemRoleData = eval('(' + data + ')');
+				var datalist = eval('(' + data + ')');
+				// 把查询数据赋值给js变量
+				SystemRoleData = datalist[1].SystemRoleConfiguration;
+				BandingRoleSelectList(datalist[0].SystemRole);
 			} else {
 				SystemRoleData = null;
 			}
 		}
 	});
+}
+//绑定选项角色
+function BandingSystemUserRoleSelectList(list) {
+	var sele = "";
+	for (var i = 0; i < list.length; i++) {
+		sele += "<li data-index=\"" + i + "\" data-group=\"0\""
+				+ "onclick=\"SystemUserRoleoption('"
+				+ list[i].RoleName + "')\"><span"
+				+ "class=\"am-selected-text\">" + list[i].RoleName
+				+ "</span> <i class=\"am-icon-check\"></i>" + "</li>"
+	}
+	$("#SystemUserRoleshowselected").html(list[0].RoleName);
+	$("#SystemUserRoleselectUl").html(sele);
 }
 
 function GetSystemUserQuery() {
@@ -128,7 +144,7 @@ function UpdateSystemUserQuery() {
 }
 
 //角色页面的选择查询条件
-function SystemUserselected() {
+function SystemUserRoleselected() {
 	var stu = document.getElementById("SystemUserselect").style.display;
 	if (stu == "none") {
 		document.getElementById("SystemUserselect").style.display = "block";
@@ -137,7 +153,7 @@ function SystemUserselected() {
 	}
 }
 //角色页面的选择条件值后返回
-function SystemUseroption(name) {
+function SystemUserRoleoption(name) {
 	document.getElementById("SystemUsershowselected").innerHTML = name;
 	document.getElementById("SystemUserselect").style.display = "none";
 }
