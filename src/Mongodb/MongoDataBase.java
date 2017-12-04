@@ -6,9 +6,12 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
 public class MongoDataBase {
+	static Mongo mongoClient;
+	//private static com.mongodb.DB mongoDatabase;
 	static String host = "localhost";
 	static int port = 27017;
 	static String databaseName = "EarlyToSchoolDB";
@@ -18,16 +21,22 @@ public class MongoDataBase {
 		DB mongoDatabase = null;
 		try {
 			// 连接到 mongodb 服务
-			MongoClient mongoClient = new MongoClient(host, port);
+			//MongoClient mongoClient = new MongoClient(host, port);
+			mongoClient = new MongoClient(host, port);
 			// 连接到数据库
+			
 			mongoDatabase = mongoClient.getDB(databaseName);
+			//mongoDatabase = mongoClient.getDB(databaseName);
 			System.out.println("Connect to database successfully");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		return mongoDatabase;
 	}
-
+	//关闭当前数据库连接
+	public static void drop(){
+		mongoClient.close();
+	}
 	// 查询表所有数据
 	// 表名：TableName
 	// 修改条件：query/query=null,查询所有

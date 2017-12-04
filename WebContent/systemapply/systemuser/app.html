@@ -1,6 +1,9 @@
-﻿<link rel="stylesheet" href="../assets/css/appcustom.css">
+﻿<meta charset="utf-8">
+<link rel="stylesheet" href="../assets/css/appcustom.css">
 <div id="systemuserform" class="widget-body  am-fr">
+    <script src="../assets/js/amazeui.min.js"></script>
 	<script src="../systemapply/systemuser/app.js"></script>
+
 	<div id="SystemUserShowPage">
 		<div class="am-u-sm-12 am-u-md-6 am-u-lg-6">
 			<div class="am-form-group">
@@ -66,7 +69,6 @@
 						<th>角色名称</th>
 						<th>用户编码</th>
 						<th>用户名称</th>
-						<th>角色编码</th>
 						<th>身份证号</th>
 						<th>用户性别</th>
 						<th>用户年龄</th>
@@ -140,8 +142,9 @@
 										<span class="tpl-form-line-small-title">SchoolName</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" class="tpl-form-input" id="SystemRoleCode"
-											placeholder="请选择所在学校">
+										<input type="text" class="tpl-form-input" id="txtSchoolName"
+											placeholder="请选择所在学校"> <input type="text"
+											id="txtSchoolCode" style="display: none;">
 									</div>
 								</div>
 
@@ -150,8 +153,9 @@
 										<span class="tpl-form-line-small-title">ClassName</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
-											placeholder="请选择班级名称">
+										<input type="text" id="txtClassName" class="tpl-form-input"
+											placeholder="请选择班级名称"> <input type="text"
+											id="txtClassCode" style="display: none;">
 									</div>
 								</div>
 
@@ -160,8 +164,10 @@
 										<span class="tpl-form-line-small-title">RoleName</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
-											placeholder="请选择角色名称">
+										<input type="text" id="txtRoleName" class="tpl-form-input"
+											placeholder="请选择角色名称"> <input type="text"
+											id="txtRoleCode" style="display: none;">
+                                       
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -169,7 +175,7 @@
 										<span class="tpl-form-line-small-title">UserName</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
+										<input type="text" id="txtUserName" class="tpl-form-input"
 											placeholder="请选择用户名称">
 									</div>
 								</div>
@@ -179,7 +185,7 @@
 										<span class="tpl-form-line-small-title">UserIcon</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
+										<input type="text" id="txtUserIcon" class="tpl-form-input"
 											placeholder="请选择用户图标">
 									</div>
 								</div>
@@ -188,7 +194,7 @@
 										<span class="tpl-form-line-small-title">UserIDNumber</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
+										<input type="text" id="txtUserIDNumber" class="tpl-form-input"
 											placeholder="请输入身份证号">
 									</div>
 								</div>
@@ -197,8 +203,10 @@
 										<span class="tpl-form-line-small-title">UserDateOfBirth</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
-											placeholder="请选择出生日期">
+                                        <!--<input type="text"  data-am-datepicker="" readonly=""
+                                               class="tpl-form-input" placeholder="请选择出生日期">-->
+                                        <input type="text" id="txtUserDateOfBirth" class="am-form-field tpl-form-no-bg" placeholder="出生日期" data-am-datepicker="" readonly="">
+                                        
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -206,8 +214,8 @@
 										<span class="tpl-form-line-small-title">UserBelonging</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
-											placeholder="请选择用户归属地">
+										<input type="text" id="txtUserBelonging"
+											class="tpl-form-input" placeholder="请选择用户归属地">
 									</div>
 								</div>
 								<div class="am-form-group">
@@ -215,7 +223,7 @@
 										<span class="tpl-form-line-small-title">UserPassword</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
+										<input type="text" id="txtUserPassword" class="tpl-form-input"
 											placeholder="请输入用户密码">
 									</div>
 								</div>
@@ -224,8 +232,8 @@
 										<span class="tpl-form-line-small-title">ConfirmPassword</span>
 									</label>
 									<div class="am-u-sm-9">
-										<input type="text" id="SystemRoleName" class="tpl-form-input"
-											placeholder="请输入确认密码">
+										<input type="text" id="txtConfirmPassword"
+											class="tpl-form-input" placeholder="请输入确认密码">
 									</div>
 								</div>
 
@@ -233,7 +241,7 @@
 									<label for="user-intro" class="am-u-sm-3 am-form-label">启用角色</label>
 									<div class="am-u-sm-9">
 										<div class="tpl-switch">
-											<input type="checkbox" id="SystemRoleDeleteFlag"
+											<input type="checkbox" id="txtRoleDeleteFlag"
 												class="ios-switch bigswitch tpl-switch-btn" checked="">
 											<div class="tpl-switch-btn-view">
 												<div></div>
@@ -245,7 +253,7 @@
 
 								<div class="am-form-group">
 									<div class="am-u-sm-9 am-u-sm-push-3">
-										<button type="button" onclick="RoleSaveData();"
+										<button type="button" onclick="SystemUserSaveData();"
 											class="am-btn am-btn-primary tpl-btn-bg-color-success ">提交</button>
 									</div>
 								</div>

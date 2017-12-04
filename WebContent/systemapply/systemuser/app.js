@@ -155,16 +155,40 @@ function BandingSystemUserData(IndexPage) {
 	for (var i = ((SystemUserIndexPage - 1) * PageNumber); i < SystemUserSelectData.length
 			&& i < (SystemUserIndexPage * PageNumber); i++) {
 		// data.push(SystemRoleData[i]);
-		data += "<tr class=\"gradeX\"><td>" + SystemUserSelectData[i].RoleCode
+		data += "<tr class=\"gradeX\"><td>" + SystemUserSelectData[i].SchoolName
 				+ "</td>";
+		data += "<td>" + SystemUserSelectData[i].ClassName + "</td>";
 		data += "<td>" + SystemUserSelectData[i].RoleName + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserCode + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserName + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserIDNumber + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserSex + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserAge + "</td>";
+		data += "<td>" + SystemUserSelectData[i].UserBelonging + "</td>";
+		
 		var img = "../assets/i/ico_no.png";
 		if (SystemUserSelectData[i].DeleteFlag == 0) {
 			img = "../assets/i/ico_yes.png";
 		}
-		var strData = "[{Id:'" + SystemUserSelectData[i].Id + "',RoleCode:'"
+		//Id;SchoolName;SchoolCode;ClassName;ClassCode;RoleCode;RoleName;UserCode;UserName;UserIcon;UserIDNumber;
+		//UserSex;UserDateOfBirth;UserAge; UserBirthday; UserBelonging;UserPassword; DeleteFlag;	
+		var strData = "[{Id:'" + SystemUserSelectData[i].Id + "',SchoolName:'"
+				+ SystemUserSelectData[i].SchoolName + "',SchoolCode:'"
+				+ SystemUserSelectData[i].SchoolCode + "',ClassName:'"
+				+ SystemUserSelectData[i].ClassName + "',ClassCode:'"
+				+ SystemUserSelectData[i].ClassCode + "',RoleCode:'"
 				+ SystemUserSelectData[i].RoleCode + "',RoleName:'"
-				+ SystemUserSelectData[i].RoleName + "',DeleteFlag:'"
+				+ SystemUserSelectData[i].RoleName + "',UserCode:'"
+				+ SystemUserSelectData[i].UserCode + "',UserName:'"
+				+ SystemUserSelectData[i].UserName + "',UserIcon:'"
+				+ SystemUserSelectData[i].UserIcon + "',UserIDNumber:'"
+				+ SystemUserSelectData[i].UserIDNumber + "',UserSex:'"
+				+ SystemUserSelectData[i].UserSex + "',UserDateOfBirth:'"
+				+ SystemUserSelectData[i].UserDateOfBirth + "',UserAge:'"
+				+ SystemUserSelectData[i].UserAge + "',UserBirthday:'"
+				+ SystemUserSelectData[i].UserBirthday + "',UserBelonging:'"
+				+ SystemUserSelectData[i].UserBelonging + "',UserPassword:'"
+				+ SystemUserSelectData[i].UserPassword + "',DeleteFlag:'"
 				+ SystemUserSelectData[i].DeleteFlag + "'}]";
 		data += "<td><img src = '" + img
 				+ "' style=\"width: 15px; vertical-align: middle;\" /></td>";

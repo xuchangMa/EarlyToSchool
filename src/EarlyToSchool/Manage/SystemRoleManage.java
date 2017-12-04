@@ -19,7 +19,7 @@ public class SystemRoleManage {
 		query.append(QueryOperators.OR, new BasicDBObject[] { 
 				new BasicDBObject("DeleteFlag", "0"),  
                 new BasicDBObject("DeleteFlag", "1") }); 
-		DBCursor table = MongoDataBase.ConditionQuery(TableName, query);
+		DBCursor table = MongoDataBase.ConditionQuery(TableName, query);		
 		String Data = "[";
 		while (table.hasNext()) {
 			DBObject dbObj = table.next();
@@ -31,6 +31,7 @@ public class SystemRoleManage {
 			return "";
 		}
 		Data = Data.substring(0, Data.length() - 1) + "]";
+		MongoDataBase.drop();//关闭数据库连接
 		return Data;
 	}
 
@@ -45,6 +46,7 @@ public class SystemRoleManage {
 		doc.append("RoleName", RoleName);
 		doc.append("DeleteFlag", DeleteFlag);
 		if (MongoDataBase.Insert("SystemRole", doc)) {
+			MongoDataBase.drop();//关闭数据库连接
 			return GetRoleList();
 		} else {
 			return "No";
@@ -67,6 +69,7 @@ public class SystemRoleManage {
         newDocument.put("DeleteFlag", DeleteFlag);             
 		
 		if (MongoDataBase.Update("SystemRole", query, newDocument)) {
+			MongoDataBase.drop();//关闭数据库连接
 			return GetRoleList();
 		} else {
 			return "No";
@@ -84,6 +87,7 @@ public class SystemRoleManage {
         newDocument.put("DeleteFlag", "2");             
 		
 		if (MongoDataBase.Update("SystemRole", query, newDocument)) {
+			MongoDataBase.drop();//关闭数据库连接
 			return GetRoleList();
 		} else {
 			return "No";
