@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Amaze UI Admin index Examples</title>
+<title>EarlyToSchool 注册</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="keywords" content="index">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,18 @@
 <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
 <link rel="stylesheet" href="../assets/css/app.css">
 <script src="../assets/js/jquery.min.js"></script>
+<script>
+$(function() {
+	  $('#userpassword2').validator({
+	    validate: function(validity) {
+	      
+	          validity.valid = false;
+	        
+	      }
+	    })
+	  });
 
+</script>
 </head>
 
 <body data-type="login">
@@ -39,47 +50,39 @@
 			<div class="tpl-login-content">
 				<div class="tpl-login-title">注册用户</div>
 				<span class="tpl-login-content-info"> 创建一个新的用户 </span>
-
-
+<!-- data-validation-message="自定义提示信息：输入地球上的电子邮箱撒" -->
 				<form class="am-form tpl-form-line-form">
 					<div class="am-form-group">
 						<input type="text" class="tpl-form-input" id="user-name"
-							placeholder="邮箱">
-
+							pattern="^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$" 
+							placeholder="身份证号" required>
 					</div>
 
 					<div class="am-form-group">
 						<input type="text" class="tpl-form-input" id="user-name"
-							placeholder="用户名">
+							placeholder="用户名称" minlength="3" required>
 					</div>
 
 					<div class="am-form-group">
-						<input type="password" class="tpl-form-input" id="user-name"
-							placeholder="请输入密码">
+						<input type="password" class="tpl-form-input" id="userpassword"
+						minlength="6"  placeholder="请输入密码"required >
 					</div>
 
 					<div class="am-form-group">
-						<input type="password" class="tpl-form-input" id="user-name"
-							placeholder="再次输入密码">
+						<input type="password" class="tpl-form-input" id="userpassword2"
+						placeholder="再次输入密码" data-equal-to="#userpassword" required >
 					</div>
 
 					<div class="am-form-group tpl-login-remember-me">
-						<input id="remember-me" type="checkbox"> <label
+						<input id="remember-me" type="checkbox" required> <label
 							for="remember-me"> 我已阅读并同意 <a href="javascript:;">《用户注册协议》</a>
 						</label>
 
 					</div>
 
-
-
-
-
-
 					<div class="am-form-group">
-
-						<button type="button"
+						<button type="submit"
 							class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
-
 					</div>
 				</form>
 			</div>
