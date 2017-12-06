@@ -12,27 +12,33 @@ import EarlyToSchool.Manage.SystemUserManage;
 @RequestMapping(value = "/SystemUser", produces = "text/html; charset=UTF-8")
 public class SystemUserController {
 	// @RequestBody 将json对象转成java对象
-		// @ResponseBody 表示返回的是json对象
-		@RequestMapping("/GetSystemUser")
-		public @ResponseBody String GetSystemUser(HttpServletRequest request) {
-			return SystemUserManage.GetSystemUserList();
-		}
-		
-		// 新增一条数据
-		@RequestMapping("/InsertSystemUser")
-		public @ResponseBody String InsertSystemUser(HttpServletRequest request) {
-			return SystemUserManage.InsertSystemUserData(request);
-		}
+	// @ResponseBody 表示返回的是json对象
+	@RequestMapping("/GetSystemUser")
+	public @ResponseBody String GetSystemUser(HttpServletRequest request) {
+		return SystemUserManage.GetSystemUserList();
+	}
 
-		// 修改一条数据
-		@RequestMapping("/UpdateSystemUser")
-		public @ResponseBody String UpdateSystemUser(HttpServletRequest request) {
-			return SystemUserManage.UpdateSystemUserData(request);
-		}
+	// 新增一条数据
+	@RequestMapping("/InsertSystemUser")
+	public @ResponseBody String InsertSystemUser(HttpServletRequest request) {
+		return SystemUserManage.InsertSystemUserData(request);
+	}
 
-		// 删除一条数据
-		@RequestMapping("/DeleteSystemUser")
-		public @ResponseBody String DeleteSystemUser(HttpServletRequest request) {
-			return SystemUserManage.DeleteSystemUserData(request);
-		}
+	// 修改一条数据
+	@RequestMapping("/UpdateSystemUser")
+	public @ResponseBody String UpdateSystemUser(HttpServletRequest request) {
+		return SystemUserManage.UpdateSystemUserData(request);
+	}
+
+	// 删除一条数据
+	@RequestMapping("/DeleteSystemUser")
+	public @ResponseBody String DeleteSystemUser(HttpServletRequest request) {
+		return SystemUserManage.DeleteSystemUserData(request);
+	}
+
+	// 用户登录 
+	@RequestMapping("/LoginSystemUser")
+	public @ResponseBody String LoginSystemUser(HttpServletRequest request) {
+		return SystemUserManage.LoginSystemUserIs(request);
+	}
 }

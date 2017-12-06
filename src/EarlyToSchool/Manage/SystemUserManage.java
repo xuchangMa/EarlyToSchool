@@ -63,42 +63,57 @@ public class SystemUserManage {
 	public static String InsertSystemUserData(HttpServletRequest request) {
 		String UserCode = "000000";
 		DBCursor roletable = null;
-		// 获取用户所有应用集
-		DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
-		BasicDBObject userquery = new BasicDBObject();
-		userquery.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserCode", UserCode) });
-		do {
-			//动态生成不重复UserCode
-			UserCode = Integer.toString(new Random().nextInt(999999));
-			roletable = SystemUserDataSet.find(userquery);
-		} while (roletable.count() == 0);
-		BasicDBObject doc = new BasicDBObject();
-		doc.append("SchoolName", request.getParameter("SchoolName"));
-		doc.append("SchoolCode", request.getParameter("SchoolCode"));
-		doc.append("ClassName", request.getParameter("ClassName"));
-		doc.append("ClassCode", request.getParameter("ClassCode"));
-		doc.append("RoleCode", request.getParameter("RoleCode"));
-		doc.append("RoleName", request.getParameter("RoleName"));
-		doc.append("UserCode", UserCode);
-		doc.append("UserName", request.getParameter("UserName"));
-		doc.append("UserIcon", request.getParameter("UserIcon"));
-		doc.append("UserIDNumber", request.getParameter("UserIDNumber"));
-		doc.append("UserSex", request.getParameter("UserSex"));
-		doc.append("UserDateOfBirth", request.getParameter("UserDateOfBirth"));
-		doc.append("UserAge", request.getParameter("UserAge"));
-		doc.append("UserBirthday", request.getParameter("UserBirthday"));
-		doc.append("UserBelonging", request.getParameter("UserBelonging"));
-		doc.append("UserPassword", request.getParameter("UserPassword"));
-		doc.append("DeleteFlag", request.getParameter("DeleteFlag"));
-		if (MongoDataBase.Insert(TableName, doc)) {
-			return GetSystemUserList();
-		} else {
-			return "No";
+		int userIndex = 0;
+		try {
+			// 获取用户所有应用集
+			DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
+			// 查询当前身份证号是否存在
+			BasicDBObject userId = new BasicDBObject();
+			userId.append(QueryOperators.AND,
+					new BasicDBObject[] { new BasicDBObject("UserIDNumber", request.getParameter("UserIDNumber")) });
+			if (SystemUserDataSet.find(userId).count() != 0) {
+				return "该身份证号已注册！";
+			}
+
+			// 查询编号是否存在
+			BasicDBObject userquery = new BasicDBObject();
+			userquery.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserCode", UserCode) });
+			do {
+				// 动态生成不重复UserCode
+				UserCode = Integer.toString(new Random().nextInt(999999));
+				roletable = SystemUserDataSet.find(userquery);
+				userIndex = roletable.count();
+			} while (userIndex != 0);
+			BasicDBObject doc = new BasicDBObject();
+			doc.append("SchoolName", request.getParameter("SchoolName"));
+			doc.append("SchoolCode", request.getParameter("SchoolCode"));
+			doc.append("ClassName", request.getParameter("ClassName"));
+			doc.append("ClassCode", request.getParameter("ClassCode"));
+			doc.append("RoleCode", request.getParameter("RoleCode"));
+			doc.append("RoleName", request.getParameter("RoleName"));
+			doc.append("UserCode", UserCode);
+			doc.append("UserName", request.getParameter("UserName"));
+			doc.append("UserIcon", request.getParameter("UserIcon"));
+			doc.append("UserIDNumber", request.getParameter("UserIDNumber"));
+			doc.append("UserSex", request.getParameter("UserSex"));
+			doc.append("UserDateOfBirth", request.getParameter("UserDateOfBirth"));
+			doc.append("UserAge", request.getParameter("UserAge"));
+			doc.append("UserBirthday", request.getParameter("UserBirthday"));
+			doc.append("UserBelonging", request.getParameter("UserBelonging"));
+			doc.append("UserPassword", request.getParameter("UserPassword"));
+			doc.append("DeleteFlag", request.getParameter("DeleteFlag"));
+			if (MongoDataBase.Insert(TableName, doc)) {
+				return "Yes";
+			} else {
+				return "No";
+			}
+		} catch (Exception e) {
+			return e.getMessage();
 		}
 	}
 
 	// 修改用户数据
-	public static String UpdateSystemUserData(HttpServletRequest request) {		
+	public static String UpdateSystemUserData(HttpServletRequest request) {
 		BasicDBObject query = new BasicDBObject();
 		query.append("_id", new ObjectId(request.getParameter("Id")));
 
@@ -142,6 +157,39 @@ public class SystemUserManage {
 		} else {
 			return "No";
 		}
+	}
+
+	// 用户登陆
+	public static String LoginSystemUserIs(HttpServletRequest request) {
+
+		//获取传进来的用户名和密码
+		String UserCode = request.getParameter("UserCode");
+		String UserPassword = request.getParameter("UserPassword");
+		// 获取用户所有应用集
+		DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
+		// 支持身份证号或用户编号登陆
+		BasicDBObject userId = new BasicDBObject();
+		userId.append(QueryOperators.OR,
+				new BasicDBObject[] { new BasicDBObject("UserIDNumber", UserCode),
+						new BasicDBObject("UserCode", UserCode)});
+		
+		if(SystemUserDataSet.find(userId).count() > 0){
+			//存在当前用户
+			userId.append(QueryOperators.AND,
+					new BasicDBObject[] { new BasicDBObject("UserPassword", UserPassword)});
+			if(SystemUserDataSet.find(userId).count() > 0){
+				//登陆成功
+				return "Yse";
+			}
+			else{
+				//密码不正确
+				return "密码不正确";
+			}
+		}
+		else{
+			//用户名不存在
+			return "用户名不存在";
+		}	
 	}
 
 }
