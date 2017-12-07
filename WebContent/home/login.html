@@ -18,36 +18,48 @@
 <link rel="stylesheet" href="../assets/css/amazeui.datatables.min.css" />
 <link rel="stylesheet" href="../assets/css/app.css">
 <script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.cookie.js"></script>
 <script>
-        //==============登陆方法============
-        function login() {
-            var da = {
-                "UserName": $("#txtUserName").val(),
-                "UserPassword": $("#txtUserPassword").val()
-            };
-            // 定义当前页面访问的接口地址
-            var url = "../SystemUser/InsertSystemUser";
-            $.ajax({
-                type: "post",
-                url: url,
-                data: da,
-                async: false,
-                success: function (data) {
-                    if (data == "Yes") {
-                        // 把查询数据赋值给js变量
-                        window.location.href = "../home";
-                    } else if (data == "No") {
-                        alert("账号或密码不正确！");
-                    }
-                    else {
-                        alert(data);
-                    }
-                }
-            });
-        }
-        //END
+	//==============登陆方法============
+	function login() {
+		var da = {
+			"UserCode" : $("#txtUserName").val(),
+			"UserPassword" : $("#txtUserPassword").val()
+		};
+		// 定义当前页面访问的接口地址
+		var url = "../SystemUser/LoginSystemUser";
+		$.ajax({
+			type : "post",
+			url : url,
+			data : da,
+			async : false,
+			success : function(data) {
+				if (data.indexOf("Yes") >= 0) {
+					// 把查询数据赋值给js变量
+					$.cookie("UserCode", data.split(":")[1], {
+						expires : 7
+					}); // 存储一个带7天期限的 cookie 
+					window.location.href = "../home";
+				} else {
+					alert(data);
+				}
+			}
+		});
+	}
+	//END
 
-    </script>
+	//设置cookie
+	//test为键名，1为键值，第三个参数是失效时间
+	//$.cookie("test", "1", {
+	//	expires : 7
+	//}); // 存储一个带7天期限的 cookie  
+	//读取cookie
+	//$.cookie("test");
+	//删除cookie
+	//$.cookie("test", "1", {
+	//	expires : -1
+	//}); //设置过期时间为负就失效了
+</script>
 </head>
 
 <body data-type="login">
@@ -67,7 +79,8 @@
 		<div class="tpl-login">
 			<div class="tpl-login-content">
 				<div class="tpl-login-logo"></div>
-				<form class="am-form tpl-form-line-form" action="javascript:login();" data-am-validator>
+				<form class="am-form tpl-form-line-form"
+					action="javascript:login();" data-am-validator>
 					<div class="am-form-group">
 						<input type="text" class="tpl-form-input" id="txtUserName"
 							placeholder="请输入账号" required>
@@ -81,7 +94,7 @@
 							for="remember-me"> 记住密码 </label>
 					</div>
 					<div class="am-form-group">
-						<button type="button"
+						<button type="button" onclick="login()"
 							class="am-btn am-btn-primary  am-btn-block tpl-btn-bg-color-success  tpl-login-btn">提交</button>
 					</div>
 				</form>

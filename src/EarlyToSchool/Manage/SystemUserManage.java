@@ -53,6 +53,7 @@ public class SystemUserManage {
 		}
 		Data = Data.substring(0, Data.length() - 1);
 		Data += "]}]";
+		rolequery = null;
 		roletable = null;
 		table = null;
 		MongoDataBase.drop();// 关闭数据库连接
@@ -63,6 +64,7 @@ public class SystemUserManage {
 	public static String InsertSystemUserData(HttpServletRequest request) {
 		String UserCode = "000000";
 		DBCursor roletable = null;
+		String State = "Yes";
 		int userIndex = 0;
 		try {
 			// 获取用户所有应用集
@@ -103,20 +105,28 @@ public class SystemUserManage {
 			doc.append("UserPassword", request.getParameter("UserPassword"));
 			doc.append("DeleteFlag", request.getParameter("DeleteFlag"));
 			if (MongoDataBase.Insert(TableName, doc)) {
-				return "Yes";
+				State = "Yes";
 			} else {
-				return "No";
+				State = "No";
 			}
+			SystemUserDataSet = null;
+			userId = null;
+			userquery = null;
+			roletable = null;
+			doc = null;
+			
 		} catch (Exception e) {
-			return e.getMessage();
+			State = e.getMessage();
 		}
+		
+		return State;
 	}
 
 	// 修改用户数据
 	public static String UpdateSystemUserData(HttpServletRequest request) {
+		String State = "Yes";
 		BasicDBObject query = new BasicDBObject();
 		query.append("_id", new ObjectId(request.getParameter("Id")));
-
 		BasicDBObject newDocument = new BasicDBObject();
 		newDocument.put("SchoolName", request.getParameter("SchoolName"));
 		newDocument.put("SchoolCode", request.getParameter("SchoolCode"));
@@ -136,16 +146,19 @@ public class SystemUserManage {
 		newDocument.put("DeleteFlag", request.getParameter("DeleteFlag"));
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			return GetSystemUserList();
+			State = GetSystemUserList();
 		} else {
-			return "No";
+			State = "No";
 		}
+		query = null;
+		newDocument = null;
+		return State;
 	}
 
 	// 删除用户数据
 	public static String DeleteSystemUserData(HttpServletRequest request) {
 		String Id = request.getParameter("Id");
-
+		String State = "No";
 		BasicDBObject query = new BasicDBObject();
 		query.append("_id", new ObjectId(Id));
 
@@ -153,43 +166,54 @@ public class SystemUserManage {
 		newDocument.put("DeleteFlag", "2");
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			return GetSystemUserList();
+			State = GetSystemUserList();
 		} else {
-			return "No";
+			State = "No";
 		}
+		query = null;
+		Id = null;
+		newDocument = null;
+		return State;
 	}
 
 	// 用户登陆
 	public static String LoginSystemUserIs(HttpServletRequest request) {
-
-		//获取传进来的用户名和密码
+		String State = "No";
+		// 获取传进来的用户名和密码
 		String UserCode = request.getParameter("UserCode");
 		String UserPassword = request.getParameter("UserPassword");
 		// 获取用户所有应用集
 		DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
 		// 支持身份证号或用户编号登陆
 		BasicDBObject userId = new BasicDBObject();
-		userId.append(QueryOperators.OR,
-				new BasicDBObject[] { new BasicDBObject("UserIDNumber", UserCode),
-						new BasicDBObject("UserCode", UserCode)});
-		
-		if(SystemUserDataSet.find(userId).count() > 0){
-			//存在当前用户
-			userId.append(QueryOperators.AND,
-					new BasicDBObject[] { new BasicDBObject("UserPassword", UserPassword)});
-			if(SystemUserDataSet.find(userId).count() > 0){
-				//登陆成功
-				return "Yse";
-			}
-			else{
-				//密码不正确
-				return "密码不正确";
-			}
-		}
-		else{
-			//用户名不存在
-			return "用户名不存在";
-		}	
-	}
+		userId.append(QueryOperators.OR, new BasicDBObject[] { new BasicDBObject("UserIDNumber", UserCode),
+				new BasicDBObject("UserCode", UserCode) });
 
+		if (SystemUserDataSet.find(userId).count() > 0) {
+			// 存在当前用户
+			userId.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserPassword", UserPassword) });
+			DBCursor table = SystemUserDataSet.find(userId);
+			if (table.count() > 0) {
+				// 登陆成功
+				while (table.hasNext()) {
+					DBObject dbObj = table.next();
+					UserCode = dbObj.get("UserCode").toString();
+				}
+				State = "Yes:" + UserCode;
+			} else {
+				// 密码不正确
+				State = "密码不正确";
+			}
+			table = null;
+		} else {
+			// 用户名不存在
+			State = "用户名不存在";
+		}
+		UserCode = null;
+		UserPassword = null;
+		SystemUserDataSet = null;
+		userId = null;
+		
+		return State;
+	}
 }

@@ -31,6 +31,7 @@ public class SystemApplicationSetManage {
 					+ dbObj.get("ApplicationURL") + "',\"ApplicationPosition\":'" + dbObj.get("ApplicationPosition")
 					+ "',\"DeleteFlag\":'" + dbObj.get("DeleteFlag") + "'},";
 		}
+		query = null;
 		table = null;
 		if (Data == "[") {
 			return "";

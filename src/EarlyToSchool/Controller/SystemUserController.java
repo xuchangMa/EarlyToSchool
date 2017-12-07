@@ -36,7 +36,7 @@ public class SystemUserController {
 		return SystemUserManage.DeleteSystemUserData(request);
 	}
 
-	// 用户登录 
+	// 用户登录
 	@RequestMapping("/LoginSystemUser")
 	public @ResponseBody String LoginSystemUser(HttpServletRequest request) {
 		return SystemUserManage.LoginSystemUserIs(request);
