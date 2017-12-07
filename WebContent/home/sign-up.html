@@ -24,7 +24,8 @@
             var da = {
                 "UserIDNumber": $("#txtUserIDNumber").val(),
                 "UserName": $("#txtUserName").val(),
-                "UserPassword": $("#txtUserPassword").val()
+                "UserPassword": $("#txtUserPassword").val(),
+                "DeleteFlag": "0"
             };
             // 定义当前页面访问的接口地址
             var url = "../SystemUser/InsertSystemUser";
@@ -36,7 +37,7 @@
                 success: function (data) {
                     if (data == "Yes") {
                         // 把查询数据赋值给js变量
-                        window.location.href = "../home";
+                        window.location.href = "login.html";
                     } else if (data == "No") {
                         alert("注册失败！");
                     }

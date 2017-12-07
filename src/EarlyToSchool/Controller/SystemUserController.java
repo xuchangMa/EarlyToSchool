@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import EarlyToSchool.Manage.IndexManage;
 import EarlyToSchool.Manage.SystemUserManage;
 
 @Controller
@@ -40,5 +41,11 @@ public class SystemUserController {
 	@RequestMapping("/LoginSystemUser")
 	public @ResponseBody String LoginSystemUser(HttpServletRequest request) {
 		return SystemUserManage.LoginSystemUserIs(request);
+	}
+	// 获取登陆信息
+	@RequestMapping("/getSystemApplicationSet")
+	public @ResponseBody String getSystemApplicationSet(HttpServletRequest request){
+	    return IndexManage.GetSystemApplicationSetList(request);
+	
 	}
 }

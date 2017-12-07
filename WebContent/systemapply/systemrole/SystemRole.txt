@@ -1,0 +1,43 @@
+db.createCollection("SystemRole")
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bb9367b76aef63d0fd22"),
+    "RoleCode" : "1001",
+    "RoleName" : "管理员",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bc6567b76aef63d0fd23"),
+    "RoleCode" : "1002",
+    "RoleName" : "出题者",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bc6567b76aef63d0fd24"),
+    "RoleCode" : "1003",
+    "RoleName" : "校方",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bc6567b76aef63d0fd25"),
+    "RoleCode" : "1004",
+    "RoleName" : "级主任",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bc6567b76aef63d0fd26"),
+    "RoleCode" : "1005",
+    "RoleName" : "班主任",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a16bc6567b76aef63d0fd27"),
+    "RoleCode" : "1006",
+    "RoleName" : "普通教师",
+    "DeleteFlag" : "0"
+})
+db.SystemRole.insert({
+    "_id" : ObjectId("5a1a8fba57c3454a0cec2421"),
+    "RoleCode" : "1007",
+    "RoleName" : "学生",
+    "DeleteFlag" : "0"
+})

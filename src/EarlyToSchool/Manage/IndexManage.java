@@ -17,7 +17,7 @@ public class IndexManage {
 	public static String GetSystemApplicationSetList(HttpServletRequest request) {
 		String Data = "[";
 		// 获取传进来的用户名
-		String UserCode = request.getParameter("UserCode");
+		String UserCode = request.getParameter("UserCode").toString();
 		// 获取用户所有应用集
 		BasicDBObject userId = new BasicDBObject();
 		userId.append(QueryOperators.AND,
@@ -27,9 +27,9 @@ public class IndexManage {
 		String RoleCode = "0000";
 		while (table.hasNext()) {
 			DBObject dbObj = table.next();
-			RoleCode = dbObj.get("UserCode").toString();
+			RoleCode = dbObj.get("RoleCode").toString();
 		}
-		userId = null;
+		userId = new BasicDBObject();
 		table = null;
 		userId.append(QueryOperators.AND,
 				new BasicDBObject[] { new BasicDBObject("RoleCode", RoleCode), new BasicDBObject("DeleteFlag", "0") });
@@ -39,7 +39,7 @@ public class IndexManage {
 			// 获取所有应用
 			DBCollection SystemApplicationDataSet = MongoDataBase.ConditionQuery("SystemApplicationSet");
 
-			userId = null;
+			userId = new BasicDBObject();
 			table = null;
 			// 获取当前角色的菜单配置配置
 			userId.append(QueryOperators.AND,
@@ -55,7 +55,8 @@ public class IndexManage {
 				DBCursor SystemApplication = SystemApplicationDataSet.find(App);
 				while (SystemApplication.hasNext()) {
 					DBObject AppObj = SystemApplication.next();
-					if (AppObj.get("MountFlag") == "0") {
+					String MountFlag = String.valueOf(AppObj.get("MountFlag"));
+					if (MountFlag.equals("0")) {
 						// 挂载应用
 						String SubMenu = "";
 						//dbObj.get("ApplicationURL")
@@ -66,25 +67,28 @@ public class IndexManage {
 									new BasicDBObject[] {
 											new BasicDBObject("ApplicationCode", item ),
 											new BasicDBObject("ApplicationGrade", "2"), new BasicDBObject("DeleteFlag", "0") });
-							while (SystemApplicationDataSet.find(App2).hasNext()){
-								DBObject AppObj2 = SystemApplicationDataSet.find(App2).next();
-								SubMenu += "{\"ApplicationGrade\":'" + AppObj2.get("ApplicationGrade") + "',\"ApplicationName\":'"
-										+ AppObj2.get("ApplicationName") + "',\"ApplicationIcon\":'"
-										+ AppObj2.get("ApplicationIcon") + "'," + "\"ApplicationURL\":'"
-										+ AppObj2.get("ApplicationURL") + "'},";
+							DBCursor tableSubMenu = SystemApplicationDataSet.find(App2);
+							while (tableSubMenu.hasNext()){
+								DBObject AppObj2 = tableSubMenu.next();
+								SubMenu += "{\"MountFlag\":'" + AppObj2.get("MountFlag").toString() + "',\"ApplicationName\":'"
+										+ AppObj2.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
+										+ AppObj2.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
+										+ AppObj2.get("ApplicationURL").toString() + "'},";
+								AppObj2 = null;
 							}
+							tableSubMenu = null;
 						}
 						SubMenu = SubMenu.substring(0, SubMenu.length() - 1);
-						Data += "{\"ApplicationGrade\":'" + AppObj.get("ApplicationGrade") + "',\"ApplicationName\":'"
-								+ AppObj.get("ApplicationName") + "',\"ApplicationIcon\":'"
-								+ AppObj.get("ApplicationIcon") + "'," + "\"ApplicationURL\":["
+						Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
+								+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
+								+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":["
 								+ SubMenu + "]},";
 					} else {
 						// 不挂载应用
-						Data += "{\"ApplicationGrade\":'" + AppObj.get("ApplicationGrade") + "',\"ApplicationName\":'"
-								+ AppObj.get("ApplicationName") + "',\"ApplicationIcon\":'"
-								+ AppObj.get("ApplicationIcon") + "'," + "\"ApplicationURL\":'"
-								+ AppObj.get("ApplicationURL") + "'},";
+						Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
+								+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
+								+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
+								+ AppObj.get("ApplicationURL").toString() + "'},";
 					}
 					AppObj = null;
 					
