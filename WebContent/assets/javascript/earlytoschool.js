@@ -5,9 +5,12 @@ $(function (){
 	//获取当前登录用户的编码
 	var UserCode = $.cookie("UserCode");
 	if(UserCode == "" || UserCode == null){
-		alert(1);
+		$("#LoginDiv").hide();
+		$("#NoLoginDiv").show();
 		return false;
 	}
+	$("#NoLoginDiv").hide();
+	$("#LoginDiv").show();
 	//获取用户基本信息
 	da = {
 			"UserCode" : $.cookie("UserCode")
@@ -32,15 +35,7 @@ $(function (){
 })
  
 //绑定菜单方法
-function BandingMenu(menuJson) {
-    /*var menuJson = [{
-        "type": "2", "Icon": "1", "Name": "系统设置2", "value": [
-            { "type": "3", "Icon": "1", "Name": "系统设置3", "url": "" },
-            { "type": "3", "Icon": "1", "Name": "系统设置3", "url": "" },
-            { "type": "3", "Icon": "1", "Name": "系统设置3", "url": "" }]
-    },
-    { "type": "3", "Icon": "1", "Name": "系统设置3", "url": "" }
-    ]*/
+function BandingMenu(menuJson) {   
     var menuData = "";
     for (var i = 0; i < menuJson.length; i++) {
         menuData += "<li class=\"sidebar-nav-link\">";
@@ -72,4 +67,13 @@ function BandingMenu(menuJson) {
             .end()
             .find('.sidebar-nav-sub-ico').toggleClass('sidebar-nav-sub-ico-rotate');
     })
+}
+
+//退出系统
+function SystemColse(){
+	//删除cookie
+	$.cookie("UserCode", "1", {
+		expires : -1
+	});
+	window.location.href = "login.html";
 }

@@ -20,9 +20,9 @@ public class SystemRoleConfigurationManage {
 		rolequery.append(QueryOperators.OR, new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0") });
 		DBCursor roletable = MongoDataBase.ConditionQuery("SystemRole", rolequery);
 		//获取所有应用集
-		DBCollection ApplicationSetDataSet= MongoDataBase.ConditionQuery("SystemApplicationSet");
+		DBCollection ApplicationSetDataSet = MongoDataBase.ConditionQuery("SystemApplicationSet");
 		//获取所有权限配置集
-		DBCollection ConfigurationDataSet= MongoDataBase.ConditionQuery("SystemRoleConfiguration");
+		DBCollection ConfigurationDataSet = MongoDataBase.ConditionQuery("SystemRoleConfiguration");
 		// 绑定角色json数据
 		String Data = "[{\"SystemRole\":[";
 		String ConfigurationData = "";
@@ -54,7 +54,8 @@ public class SystemRoleConfigurationManage {
 								+ RoleConfigurationdbObj.get("RoleCode") + "',\"RoleName\":'"
 								+ RoleConfigurationdbObj.get("RoleName") + "'," + "\"ApplicationCode\":'"
 								+ RoleConfigurationdbObj.get("ApplicationCode") + "'," + "\"ApplicationName\":'"
-								+ RoleConfigurationdbObj.get("ApplicationName") + "'," + "\"View\":'"
+								+ RoleConfigurationdbObj.get("ApplicationName") + "'," + "\"ApplicationPosition\":'"
+								+ RoleConfigurationdbObj.get("ApplicationPosition") + "'," + "\"View\":'"
 								+ RoleConfigurationdbObj.get("View") + "'," + "\"AddUpdate\":'"
 								+ RoleConfigurationdbObj.get("AddUpdate") + "'," + "\"Delete\":'"
 								+ RoleConfigurationdbObj.get("Delete") + "'," + "\"ImportExport\":'"
@@ -68,6 +69,7 @@ public class SystemRoleConfigurationManage {
 							+ dbObj.get("RoleCode") + "',\"RoleName\":'" + dbObj.get("RoleName") + "',"
 							+ "\"ApplicationCode\":'" + ApplicationSetObjdbObj.get("ApplicationCode") + "',"
 							+ "\"ApplicationName\":'" + ApplicationSetObjdbObj.get("ApplicationName") + "',"
+							+ "\"ApplicationPosition\":'" + ApplicationSetObjdbObj.get("ApplicationPosition") + "',"
 							+ "\"View\":'1'," + "\"AddUpdate\":'1'," + "\"Delete\":'1'," + "\"ImportExport\":'1',"
 							+ "\"Upload\":'1'," + "\"Download\":'1'},";
 				}
@@ -91,6 +93,7 @@ public class SystemRoleConfigurationManage {
 		String RoleName = request.getParameter("RoleName");
 		String ApplicationCode = request.getParameter("ApplicationCode");
 		String ApplicationName = request.getParameter("ApplicationName");
+		String ApplicationPosition = request.getParameter("ApplicationPosition");
 		String View = request.getParameter("View");
 		String AddUpdate = request.getParameter("AddUpdate");
 		String ImportExport = request.getParameter("ImportExport");
@@ -102,6 +105,7 @@ public class SystemRoleConfigurationManage {
 		newDocument.put("RoleName", RoleName);
 		newDocument.put("ApplicationCode", ApplicationCode);
 		newDocument.put("ApplicationName", ApplicationName);
+		newDocument.put("ApplicationPosition", ApplicationPosition);
 		newDocument.put("View", View);
 		newDocument.put("AddUpdate", AddUpdate);
 		newDocument.put("ImportExport", ImportExport);

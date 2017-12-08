@@ -78,26 +78,13 @@ function getSystemUserData() {
 				// 把查询数据赋值给js变量
 				var datalist = eval('(' + data + ')');
 				// 把查询数据赋值给js变量
-				SystemRoleData = datalist[1].SystemRoleConfiguration;
-				BandingRoleSelectList(datalist[0].SystemRole);
+				SystemUserData = datalist;
+				GetSystemUserQuery();
 			} else {
 				SystemRoleData = null;
 			}
 		}
 	});
-}
-//绑定选项角色
-function BandingSystemUserRoleSelectList(list) {
-	var sele = "";
-	for (var i = 0; i < list.length; i++) {
-		sele += "<li data-index=\"" + i + "\" data-group=\"0\""
-				+ "onclick=\"SystemUserRoleoption('"
-				+ list[i].RoleName + "')\"><span"
-				+ "class=\"am-selected-text\">" + list[i].RoleName
-				+ "</span> <i class=\"am-icon-check\"></i>" + "</li>"
-	}
-	$("#SystemUserRoleshowselected").html(list[0].RoleName);
-	$("#SystemUserRoleselectUl").html(sele);
 }
 
 function GetSystemUserQuery() {
@@ -105,7 +92,7 @@ function GetSystemUserQuery() {
 		// 每次查询重新绑定当前页
 		SystemUserIndexPage = 1;
 		// 调用绑定数据的方法
-		BandingRoleData(SystemUserIndexPage);
+		BandingSystemUserData(SystemUserIndexPage);
 	}
 }
 
@@ -115,31 +102,16 @@ function UpdateSystemUserQuery() {
 		return false;
 	}
 	SystemUserSelectData = SystemUserData;
-	var sele = $("#SystemUsershowselected").html();
 	var seleval = $("#SystemUserSeleVal").val();
-	if (sele == "角色编码") {
-		SystemUserSelectData = [];
-		for (var i = 0; i < SystemUserData.length; i++) {
-			if (SystemUserData[i].RoleCode.indexOf(seleval) > -1) {
-				SystemUserSelectData.push(SystemRoleData[i]);
-			}
+	SystemUserSelectData = [];
+	for (var i = 0; i < SystemUserData.length; i++) {
+		if (SystemUserData[i].UserCode.indexOf(seleval) > -1
+			||SystemUserData[i].UserName.indexOf(seleval) > -1
+			||SystemUserData[i].UserIDNumber.indexOf(seleval) > -1
+			||SystemUserData[i].SchoolName.indexOf(seleval) > -1) {
+			SystemUserSelectData.push(SystemRoleData[i]);
 		}
-	} else if (sele == "角色名称") {
-		SystemRoleSelectData = [];
-		for (var i = 0; i < SystemRoleData.length; i++) {
-			if (SystemRoleData[i].RoleName.indexOf(seleval) > -1) {
-				SystemRoleSelectData.push(SystemRoleData[i]);
-			}
-		}
-	} else {
-		SystemRoleSelectData = [];
-		for (var i = 0; i < SystemRoleData.length; i++) {
-			if (SystemRoleData[i].RoleCode.indexOf(seleval) > -1
-					|| SystemRoleData[i].RoleName.indexOf(seleval) > -1) {
-				SystemRoleSelectData.push(SystemRoleData[i]);
-			}
-		}
-	}
+	}	
 	return true;
 }
 
@@ -153,7 +125,7 @@ function SystemUserRoleselected() {
 	}
 }
 //角色页面的选择条件值后返回
-function SystemUserRoleoption(name) {
+function SystemUseroption(name) {
 	document.getElementById("SystemUsershowselected").innerHTML = name;
 	document.getElementById("SystemUserselect").style.display = "none";
 }

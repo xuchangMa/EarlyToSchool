@@ -22,17 +22,17 @@ public class SystemUserManage {
 		// 查询角色信息数据
 		BasicDBObject rolequery = new BasicDBObject();
 		rolequery.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0") });
-		String Data = "[{\"SystemRole\":[";
+		String Data = "[";
 		// 获取角色所有应用集
-		DBCollection SystemRoleDataSet = MongoDataBase.ConditionQuery("SystemRole");
+		/*DBCollection SystemRoleDataSet = MongoDataBase.ConditionQuery("SystemRole");
 		DBCursor roletable = SystemRoleDataSet.find(rolequery);
 		while (roletable.hasNext()) {
 			DBObject dbObj = roletable.next();
 			Data += "{\"Id\":'" + dbObj.get("_id") + "',\"RoleCode\":'" + dbObj.get("RoleCode") + "',\"RoleName\":'"
 					+ dbObj.get("RoleName") + "'," + "\"DeleteFlag\":'" + dbObj.get("DeleteFlag") + "'},";
 		}
-		Data = Data.substring(0, Data.length() - 1);
-		Data += "]},{\"SystemRoleConfiguration\":[";
+		Data = Data.substring(0, Data.length() - 1);*/
+		//Data += "{\"SystemUser\":[";
 		BasicDBObject query = new BasicDBObject();
 		query.append(QueryOperators.OR,
 				new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0"), new BasicDBObject("DeleteFlag", "1") });
@@ -41,20 +41,20 @@ public class SystemUserManage {
 			DBObject dbObj = table.next();
 			Data += "{\"Id\":'" + dbObj.get("_id") + "',\"SchoolName\":'" + dbObj.get("SchoolName")
 					+ "',\"SchoolCode\":'" + dbObj.get("SchoolCode") + "',\"ClassName\":'" + dbObj.get("ClassName")
-					+ "'" + "',\"ClassCode\":'" + dbObj.get("ClassCode") + "',\"RoleCode\":'" + dbObj.get("RoleCode")
-					+ "'" + "',\"RoleName\":'" + dbObj.get("RoleName") + "',\"UserCode\":'" + dbObj.get("UserCode")
-					+ "'" + "',\"UserName\":'" + dbObj.get("UserName") + "',\"UserIcon\":'" + dbObj.get("UserIcon")
-					+ "'" + "',\"UserIDNumber\":'" + dbObj.get("UserIDNumber") + "',\"UserSex\":'"
-					+ dbObj.get("UserSex") + "'" + "',\"UserDateOfBirth\":'" + dbObj.get("UserDateOfBirth")
-					+ "',\"UserAge\":'" + dbObj.get("UserAge") + "'" + "',\"UserBirthday\":'"
-					+ dbObj.get("UserBirthday") + "',\"UserBelonging\":'" + dbObj.get("UserBelonging") + "'"
+					+ "',\"ClassCode\":'" + dbObj.get("ClassCode") + "',\"RoleCode\":'" + dbObj.get("RoleCode")
+					+ "',\"RoleName\":'" + dbObj.get("RoleName") + "',\"UserCode\":'" + dbObj.get("UserCode")
+					+ "',\"UserName\":'" + dbObj.get("UserName") + "',\"UserIcon\":'" + dbObj.get("UserIcon")
+					+ "',\"UserIDNumber\":'" + dbObj.get("UserIDNumber") + "',\"UserSex\":'"
+					+ dbObj.get("UserSex") + "',\"UserDateOfBirth\":'" + dbObj.get("UserDateOfBirth")
+					+ "',\"UserAge\":'" + dbObj.get("UserAge") + "',\"UserBirthday\":'"
+					+ dbObj.get("UserBirthday") + "',\"UserBelonging\":'" + dbObj.get("UserBelonging")
 					+ "',\"UserPassword\":'" + dbObj.get("UserPassword") + "',\"DeleteFlag\":'"
 					+ dbObj.get("DeleteFlag") + "'},";
 		}
 		Data = Data.substring(0, Data.length() - 1);
-		Data += "]}]";
+		Data += "]";
 		rolequery = null;
-		roletable = null;
+		//roletable = null;
 		table = null;
 		MongoDataBase.drop();// 关闭数据库连接
 		return Data;
@@ -213,7 +213,7 @@ public class SystemUserManage {
 		UserPassword = null;
 		SystemUserDataSet = null;
 		userId = null;
-		
+		MongoDataBase.drop();// 关闭数据库连接
 		return State;
 	}
 }
