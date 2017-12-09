@@ -3,7 +3,6 @@ package EarlyToSchool.Manage;
 import javax.servlet.http.HttpServletRequest;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.QueryOperators;
@@ -17,7 +16,7 @@ public class IndexManage {
 	public static String GetSystemApplicationSetList(HttpServletRequest request) {
 		String Data = "[";
 		// 获取传进来的用户名
-		String UserCode = request.getParameter("UserCode").toString();
+		String UserCode = request.getParameter("UserCode").toString();		
 		// 获取用户所有应用集
 		BasicDBObject userId = new BasicDBObject();
 		userId.append(QueryOperators.AND,
@@ -34,53 +33,62 @@ public class IndexManage {
 		MongoDataBase.drop();// 关闭数据库连接
 		userId.append(QueryOperators.AND,
 				new BasicDBObject[] { new BasicDBObject("RoleCode", RoleCode), new BasicDBObject("DeleteFlag", "0") });
-		table = MongoDataBase.ConditionQuery("SystemRole", userId);
+		Integer RoleNumber = MongoDataBase.ConditionQuery("SystemRole", userId).count();
+		MongoDataBase.drop();// 关闭数据库连接
+
+		// 获取所有应用
+		BasicDBObject App = new BasicDBObject();
+		App.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0") });
+		DBCursor SystemApplicationDataSet = MongoDataBase.ConditionQuery("SystemApplicationSet", App);
+		String[][] ApplicationDataSetList = new String[SystemApplicationDataSet.count()][7];
+		int i = 0;
+		while (SystemApplicationDataSet.hasNext()) {
+			DBObject AppObj = SystemApplicationDataSet.next();
+			ApplicationDataSetList[i][0] = AppObj.get("ApplicationCode").toString();
+			ApplicationDataSetList[i][1] = AppObj.get("ApplicationName").toString();
+			ApplicationDataSetList[i][2] = AppObj.get("ApplicationIcon").toString();
+			ApplicationDataSetList[i][3] = AppObj.get("ApplicationURL").toString();
+			ApplicationDataSetList[i][4] = AppObj.get("ApplicationGrade").toString();
+			ApplicationDataSetList[i][5] = AppObj.get("MountFlag").toString();
+			ApplicationDataSetList[i][6] = AppObj.get("DeleteFlag").toString();
+			i++;
+		}
+		SystemApplicationDataSet = null;
+		MongoDataBase.drop();// 关闭数据库连接
+
 		// 判断当前角色生效
-		if (table.count() > 0) {
+		if (RoleNumber > 0) {
+			// 获取当前角色有权限的应用
 			userId = new BasicDBObject();
 			table = null;
-			MongoDataBase.drop();// 关闭数据库连接
-			// 获取所有应用
-			DBCollection SystemApplicationDataSet = MongoDataBase.ConditionQuery("SystemApplicationSet");
 			// 获取当前角色的菜单配置配置
 			userId.append(QueryOperators.AND,
-					new BasicDBObject[] { new BasicDBObject("RoleCode", RoleCode), new BasicDBObject("View", "0") });
-			BasicDBObject sortObject = new BasicDBObject();					
-			//mongodb中按age字段倒序查询（-1是倒序，1是正序）
-			sortObject.put("ApplicationPosition",1);
-			DBCollection SystemRoleConfiguration = MongoDataBase.ConditionQuery("SystemRoleConfiguration");
-			table = SystemRoleConfiguration.find(userId).sort(sortObject);
-			if(table.count() > 0){
-				while (table.hasNext()) {
-					DBObject dbObj = table.next();
-					BasicDBObject App = new BasicDBObject();
-					App.append(QueryOperators.AND,
-							new BasicDBObject[] {
-									new BasicDBObject("ApplicationCode", dbObj.get("ApplicationCode").toString()),
-									new BasicDBObject("ApplicationGrade", "1"), new BasicDBObject("DeleteFlag", "0") });										
-					Data += BangDingMenuJson(SystemApplicationDataSet, App, SystemRoleConfiguration);														
-					dbObj = null;
-					App = null;
-				}	
-				SystemApplicationDataSet = null;
-				SystemRoleConfiguration = null;
-				MongoDataBase.drop();// 关闭数据库连接
+					new BasicDBObject[] { new BasicDBObject("RoleCode", RoleCode),
+							new BasicDBObject("View", "0") });
+			BasicDBObject sortObject = new BasicDBObject();
+			// mongodb中按age字段倒序查询（-1是倒序，1是正序）
+			sortObject.put("ApplicationPosition", 1);
+			table = MongoDataBase.ConditionQuery("SystemRoleConfiguration", userId).sort(sortObject);
+			String[] RoleConfig= new String[table.count()];
+			i = 0;
+			while (table.hasNext()) {
+				DBObject dbObj = table.next();
+				RoleConfig[i] = dbObj.get("ApplicationCode").toString();			
+				dbObj = null;
+				i++;
 			}
-			else if(RoleCode.equals("1001")){
-				//判断管理员身份
-				BasicDBObject App = new BasicDBObject();
-				App.append(QueryOperators.AND,
-						new BasicDBObject[] {
-								new BasicDBObject("ApplicationCode", "A0007"),
-								new BasicDBObject("ApplicationGrade", "1"), new BasicDBObject("DeleteFlag", "0") });								
-				Data += BangDingMenuJson(SystemApplicationDataSet, App);
-				App = null;
-				MongoDataBase.drop();// 关闭数据库连接
-			}
-			SystemApplicationDataSet = null;
 			MongoDataBase.drop();// 关闭数据库连接
-			
-		}		
+			if (RoleConfig.length > 0) {
+				for(String ApplicationCode : RoleConfig){
+					Data += BangDingMenuJson(ApplicationDataSetList, ApplicationCode);
+				}
+				
+			} else if (RoleCode.equals("1001")) {
+				// 判断管理员身份
+				Data += BangDingMenuJson(ApplicationDataSetList, "A0007");
+				App = null;
+			}
+		}
 		userId = null;
 		table = null;
 		if (Data == "[") {
@@ -89,107 +97,51 @@ public class IndexManage {
 		Data = Data.substring(0, Data.length() - 1) + "]";
 		return Data;
 	}
-	static String BangDingMenuJson(DBCollection SystemApplicationDataSet, BasicDBObject App, DBCollection SystemRoleConfiguration){
+
+	// 绑定已有数据
+	static String BangDingMenuJson(String[][] SystemApplicationDataSet, String ApplicationCode) {
 		String Data = "";
-		DBCursor SystemApplication = SystemApplicationDataSet.find(App);
-		while (SystemApplication.hasNext()) {
-			DBObject AppObj = SystemApplication.next();
-			String MountFlag = String.valueOf(AppObj.get("MountFlag"));
-			if (MountFlag.equals("0")) {
-				// 挂载应用
-				String SubMenu = "";
-				//dbObj.get("ApplicationURL")
-				String[] SubCode = AppObj.get("ApplicationURL").toString().split(",");
-				for(String item : SubCode){
-					BasicDBObject App2 = new BasicDBObject();
-					App2.append(QueryOperators.AND,
-							new BasicDBObject[] {
-									new BasicDBObject("ApplicationCode", item ),
-									new BasicDBObject("View", "0") });
-					DBCursor tableRoleConfiguration = SystemRoleConfiguration.find(App2);
-					if(tableRoleConfiguration.count() > 0){
-						App2 = new BasicDBObject();
-						App2.append(QueryOperators.AND,
-								new BasicDBObject[] {
-										new BasicDBObject("ApplicationCode", item ),
-										new BasicDBObject("ApplicationGrade", "2"), new BasicDBObject("DeleteFlag", "0") });
-						DBCursor tableSubMenu = SystemApplicationDataSet.find(App2);
-						while (tableSubMenu.hasNext()){
-							DBObject AppObj2 = tableSubMenu.next();
-							SubMenu += "{\"MountFlag\":'" + AppObj2.get("MountFlag").toString() + "',\"ApplicationName\":'"
-									+ AppObj2.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-									+ AppObj2.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
-									+ AppObj2.get("ApplicationURL").toString() + "'},";
-							AppObj2 = null;
+		for (String[] itemApp : SystemApplicationDataSet) {
+			// 判断当前应用
+			if (itemApp[0].equals(ApplicationCode) && itemApp[4].equals("1")) {
+				// 判断该应用是否挂载子应用
+				if (itemApp[5].equals("0")) {
+					// 挂载应用
+					String SubMenu = "";
+					// dbObj.get("ApplicationURL")
+					String[] SubCode = itemApp[3].toString().split(",");
+					for (String item : SubCode) {
+						BasicDBObject App2 = new BasicDBObject();
+						App2.append(QueryOperators.AND, new BasicDBObject[] {
+								new BasicDBObject("ApplicationCode", item), new BasicDBObject("View", "0") });
+						DBCursor tableRoleConfiguration = MongoDataBase.ConditionQuery("SystemRoleConfiguration", App2);
+						if (tableRoleConfiguration.count() > 0) {
+							for (String[] ItemSubMenu : SystemApplicationDataSet) {
+								if (ItemSubMenu[0].equals(item)) {
+									SubMenu += "{\"MountFlag\":'" + ItemSubMenu[5] + "',\"ApplicationName\":'"
+											+ ItemSubMenu[1] + "',\"ApplicationIcon\":'" + ItemSubMenu[2] + "',"
+											+ "\"ApplicationURL\":'" + ItemSubMenu[3] + "'},";
+									continue;
+								}
+							}
 						}
-						tableSubMenu = null;
+						tableRoleConfiguration = null;
+						App2 = null;
+						MongoDataBase.drop(); // 关闭数据库链接
 					}
-					tableRoleConfiguration = null;
-					App2 = null;
+					SubMenu = SubMenu.substring(0, SubMenu.length() - 1);
+					Data += "{\"MountFlag\":'" + itemApp[5] + "',\"ApplicationName\":'" + itemApp[1]
+							+ "',\"ApplicationIcon\":'" + itemApp[2] + "'," + "\"ApplicationURL\":[" + SubMenu + "]},";
+				} else {
+					// 不挂载应用
+					Data += "{\"MountFlag\":'" + itemApp[5] + "',\"ApplicationName\":'" + itemApp[1]
+							+ "',\"ApplicationIcon\":'" + itemApp[2] + "'," + "\"ApplicationURL\":'" + itemApp[3]
+							+ "'},";
 				}
-				SubMenu = SubMenu.substring(0, SubMenu.length() - 1);
-				Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
-						+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-						+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":["
-						+ SubMenu + "]},";
-			} else {
-				// 不挂载应用
-				Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
-						+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-						+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
-						+ AppObj.get("ApplicationURL").toString() + "'},";
+				continue;
 			}
-			AppObj = null;
-			
 		}
-		SystemApplication = null;
 		return Data;
 	}
-	//初始绑定
-	static String BangDingMenuJson(DBCollection SystemApplicationDataSet, BasicDBObject App){
-		String Data = "";
-		DBCursor SystemApplication = SystemApplicationDataSet.find(App);
-		while (SystemApplication.hasNext()) {
-			DBObject AppObj = SystemApplication.next();
-			String MountFlag = String.valueOf(AppObj.get("MountFlag"));
-			if (MountFlag.equals("0")) {
-				// 挂载应用
-				String SubMenu = "";
-				//dbObj.get("ApplicationURL")
-				String[] SubCode = AppObj.get("ApplicationURL").toString().split(",");
-				for(String item : SubCode){
-					BasicDBObject App2 = new BasicDBObject();
-					App2.append(QueryOperators.AND,
-							new BasicDBObject[] {
-								new BasicDBObject("ApplicationCode", item ),
-								new BasicDBObject("ApplicationGrade", "2"), new BasicDBObject("DeleteFlag", "0") });
-					DBCursor tableSubMenu = SystemApplicationDataSet.find(App2);
-					while (tableSubMenu.hasNext()){
-						DBObject AppObj2 = tableSubMenu.next();
-						SubMenu += "{\"MountFlag\":'" + AppObj2.get("MountFlag").toString() + "',\"ApplicationName\":'"
-								+ AppObj2.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-								+ AppObj2.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
-								+ AppObj2.get("ApplicationURL").toString() + "'},";
-						AppObj2 = null;
-					}
-					tableSubMenu = null;					
-				}
-				SubMenu = SubMenu.substring(0, SubMenu.length() - 1);
-				Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
-						+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-						+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":["
-						+ SubMenu + "]},";
-			} else {
-				// 不挂载应用
-				Data += "{\"MountFlag\":'" + AppObj.get("MountFlag").toString() + "',\"ApplicationName\":'"
-						+ AppObj.get("ApplicationName").toString() + "',\"ApplicationIcon\":'"
-						+ AppObj.get("ApplicationIcon").toString() + "'," + "\"ApplicationURL\":'"
-						+ AppObj.get("ApplicationURL").toString() + "'},";
-			}
-			AppObj = null;
-			
-		}
-		SystemApplication = null;
-		return Data;
-	}
+
 }

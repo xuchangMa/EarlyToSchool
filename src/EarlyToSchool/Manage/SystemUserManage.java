@@ -23,16 +23,7 @@ public class SystemUserManage {
 		BasicDBObject rolequery = new BasicDBObject();
 		rolequery.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0") });
 		String Data = "[";
-		// 获取角色所有应用集
-		/*DBCollection SystemRoleDataSet = MongoDataBase.ConditionQuery("SystemRole");
-		DBCursor roletable = SystemRoleDataSet.find(rolequery);
-		while (roletable.hasNext()) {
-			DBObject dbObj = roletable.next();
-			Data += "{\"Id\":'" + dbObj.get("_id") + "',\"RoleCode\":'" + dbObj.get("RoleCode") + "',\"RoleName\":'"
-					+ dbObj.get("RoleName") + "'," + "\"DeleteFlag\":'" + dbObj.get("DeleteFlag") + "'},";
-		}
-		Data = Data.substring(0, Data.length() - 1);*/
-		//Data += "{\"SystemUser\":[";
+		// 获取角色所有应用集		
 		BasicDBObject query = new BasicDBObject();
 		query.append(QueryOperators.OR,
 				new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0"), new BasicDBObject("DeleteFlag", "1") });
@@ -54,7 +45,6 @@ public class SystemUserManage {
 		Data = Data.substring(0, Data.length() - 1);
 		Data += "]";
 		rolequery = null;
-		//roletable = null;
 		table = null;
 		MongoDataBase.drop();// 关闭数据库连接
 		return Data;

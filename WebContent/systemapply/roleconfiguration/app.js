@@ -138,62 +138,62 @@ function BandingRoleConfigurationData(IndexPage) {
 		data += "<td>" + SystemRoleConfigurationSelectData[i].ApplicationName
 				+ "</td>";
 		if (SystemRoleConfigurationSelectData[i].View == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'View')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'View'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'View')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'View'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		if (SystemRoleConfigurationSelectData[i].AddUpdate == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'AddUpdate')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'AddUpdate'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'AddUpdate')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'AddUpdate'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		if (SystemRoleConfigurationSelectData[i].Delete == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Delete')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Delete'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Delete')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Delete'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		if (SystemRoleConfigurationSelectData[i].ImportExport == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'ImportExport')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'ImportExport'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'ImportExport')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'ImportExport'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		if (SystemRoleConfigurationSelectData[i].Upload == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Upload')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Upload'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Upload')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Upload'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		if (SystemRoleConfigurationSelectData[i].Download == "0") {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Download')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Download'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\" checked=\"checked\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
 		else {
-		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Download')\"" +
+		    data += "<td><div class=\"tpl-switch\"><input type=\"checkbox\" onchange=\"RoleConfigurationUpdateState(this," + strData + ",'Download'," + i + ")\"" +
                     "class=\"ios-switch bigswitch tpl-switch-btn\">" +
                     "<div class=\"tpl-switch-btn-view\"><div></div></div></div></td>";
 		}
@@ -258,12 +258,14 @@ function RoleConfigurationBandingPages() {
 }
 
 //修改角色配置数据
-function RoleConfigurationUpdateState(obj, objlist, col) {
+function RoleConfigurationUpdateState(obj, objlist, col, i) {
     if (obj.checked) {
         objlist[0][col] = "0";
+        SystemRoleConfigurationSelectData[i][col] = "0";
     }
     else {
         objlist[0][col] = "1";
+        SystemRoleConfigurationSelectData[i][col] = "1";
     }    
     // 定义当前页面访问的接口地址
     var url = "../SystemRoleConfiguration/UpdateRoleConfiguration";
@@ -272,13 +274,14 @@ function RoleConfigurationUpdateState(obj, objlist, col) {
         if (state == "success") {
             if (data != "No") {
             	// 把查询数据赋值给js变量
-            	var datalist = eval('(' + data + ')');
+            	//var datalist = eval('(' + data + ')');
 				// 把查询数据赋值给js变量
-				SystemRoleConfigurationData = datalist[1].SystemRoleConfiguration;
+				//SystemRoleConfigurationData = datalist[1].SystemRoleConfiguration;
 				//BandingRoleSelectList(datalist[0].SystemRole);
-				UpdateRoleConfigurationQuery();
+				//UpdateRoleConfigurationQuery();
 				// 调用绑定数据的方法
-				BandingRoleConfigurationData(SystemRoleConfigurationIndexPage);
+				//BandingRoleConfigurationData(SystemRoleConfigurationIndexPage);
+            	
             }
         } else {
             alert("保存失败！")

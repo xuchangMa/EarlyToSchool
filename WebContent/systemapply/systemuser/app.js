@@ -2,72 +2,42 @@
  * 用户信息
  */
 
-/*定义数据结构*/
-/* 
- * public class SystemUser{
-	//表id
-	private String Id;	
-    //学校名称
-	private String SchoolName;
-	//学校编码
-	private String SchoolCode;	
-    //班级名称
-	private String ClassName;
-	//班级编码
-	private String ClassCode;	
-	//用户角色编码
-	private String RoleCode;	
-	//用户角色名称
-	private String RoleName;	
-	//用户编码
-	private String UserCode;		
-	//用户名称
-	private String UserName;
-	//用户图标
-	private String UserIcon;
-	//用户身份证号
-	private String UserIDNumber;
-	//用户性别
-	private String UserSex;
-	//用户出生日期
-	private String UserDateOfBirth;
-	//用户年龄
-	private String UserAge;
-	//用户生日
-	private String UserBirthday;
-	//用户归属地
-	private String UserBelonging;
-	//用户密码
-	private String UserPassword;
-	//是否生效
-	private boolean DeleteFlag;	
-}
-
- * */
+/* 定义数据结构 */
+/*
+ * public class SystemUser{ //表id private String Id; //学校名称 private String
+ * SchoolName; //学校编码 private String SchoolCode; //班级名称 private String
+ * ClassName; //班级编码 private String ClassCode; //用户角色编码 private String RoleCode;
+ * //用户角色名称 private String RoleName; //用户编码 private String UserCode; //用户名称
+ * private String UserName; //用户图标 private String UserIcon; //用户身份证号 private
+ * String UserIDNumber; //用户性别 private String UserSex; //用户出生日期 private String
+ * UserDateOfBirth; //用户年龄 private String UserAge; //用户生日 private String
+ * UserBirthday; //用户归属地 private String UserBelonging; //用户密码 private String
+ * UserPassword; //是否生效 private boolean DeleteFlag; }
+ * 
+ */
 var tableName = "SystemUser";
 /*
  * //表id//学校名称//学校编码//班级名称//班级编码//用户角色编码//用户编码//用户密码//用户名称//用户身份证号//用户性别
- * //用户年龄//用户生日//用户归属地//是否生效
- * 共13项
- * */
+ * //用户年龄//用户生日//用户归属地//是否生效 共13项
+ */
 
-//定义角色信息数据
+// 定义角色信息数据
 var SystemUserData;
-//定义查询数据
+// 定义查询数据
 var SystemUserSelectData = [];
-//定义数据当前页
+// 定义数据当前页
 var SystemUserIndexPage = 1;
-//页面加载方法
+// 页面加载方法
 $(function() {
 	// 获取数据
 	getSystemUserData();
 	// 调用查询方法
 	GetSystemUserQuery();
 });
-//页面加载方法
+// 页面加载方法
 function getSystemUserData() {
 	// 定义当前页面访问的接口地址
-	var url = "../SystemUser/GetSystemUser";	
+	var url = "../SystemUser/GetSystemUser";
 	$.ajax({
 		type : "post",
 		url : url,
@@ -96,26 +66,28 @@ function GetSystemUserQuery() {
 	}
 }
 
-//定义更新查询数据
+// 定义更新查询数据
 function UpdateSystemUserQuery() {
 	if (SystemUserData == null) {
 		return false;
 	}
 	SystemUserSelectData = SystemUserData;
 	var seleval = $("#SystemUserSeleVal").val();
-	SystemUserSelectData = [];
-	for (var i = 0; i < SystemUserData.length; i++) {
-		if (SystemUserData[i].UserCode.indexOf(seleval) > -1
-			||SystemUserData[i].UserName.indexOf(seleval) > -1
-			||SystemUserData[i].UserIDNumber.indexOf(seleval) > -1
-			||SystemUserData[i].SchoolName.indexOf(seleval) > -1) {
-			SystemUserSelectData.push(SystemRoleData[i]);
+	if (seleval != "") {
+		SystemUserSelectData = [];
+		for (var i = 0; i < SystemUserData.length; i++) {
+			if (SystemUserData[i].UserCode.indexOf(seleval) > -1
+					|| SystemUserData[i].UserName.indexOf(seleval) > -1
+					|| SystemUserData[i].UserIDNumber.indexOf(seleval) > -1
+					|| SystemUserData[i].SchoolName.indexOf(seleval) > -1) {
+				SystemUserSelectData.push(SystemRoleData[i]);
+			}
 		}
-	}	
+	}
 	return true;
 }
 
-//角色页面的选择查询条件
+// 角色页面的选择查询条件
 function SystemUserRoleselected() {
 	var stu = document.getElementById("SystemUserselect").style.display;
 	if (stu == "none") {
@@ -124,18 +96,20 @@ function SystemUserRoleselected() {
 		document.getElementById("SystemUserselect").style.display = "none";
 	}
 }
-//角色页面的选择条件值后返回
+// 角色页面的选择条件值后返回
 function SystemUseroption(name) {
 	document.getElementById("SystemUsershowselected").innerHTML = name;
 	document.getElementById("SystemUserselect").style.display = "none";
 }
-//绑定角色数据
+// 绑定角色数据
 function BandingSystemUserData(IndexPage) {
 	// 判断传进来的页码是否大于最后一页
 	if (IndexPage > Math.ceil(SystemUserSelectData.length / PageNumber)) {
 		IndexPage = Math.ceil(SystemUserSelectData.length / PageNumber);
 	}
-	if(IndexPage==0){return;}
+	if (IndexPage == 0) {
+		return;
+	}
 	// 赋值当前页码
 	SystemUserIndexPage = IndexPage;
 
@@ -143,8 +117,8 @@ function BandingSystemUserData(IndexPage) {
 	for (var i = ((SystemUserIndexPage - 1) * PageNumber); i < SystemUserSelectData.length
 			&& i < (SystemUserIndexPage * PageNumber); i++) {
 		// data.push(SystemRoleData[i]);
-		data += "<tr class=\"gradeX\"><td>" + SystemUserSelectData[i].SchoolName
-				+ "</td>";
+		data += "<tr class=\"gradeX\"><td>"
+				+ SystemUserSelectData[i].SchoolName + "</td>";
 		data += "<td>" + SystemUserSelectData[i].ClassName + "</td>";
 		data += "<td>" + SystemUserSelectData[i].RoleName + "</td>";
 		data += "<td>" + SystemUserSelectData[i].UserCode + "</td>";
@@ -153,13 +127,14 @@ function BandingSystemUserData(IndexPage) {
 		data += "<td>" + SystemUserSelectData[i].UserSex + "</td>";
 		data += "<td>" + SystemUserSelectData[i].UserAge + "</td>";
 		data += "<td>" + SystemUserSelectData[i].UserBelonging + "</td>";
-		
+
 		var img = "../assets/i/ico_no.png";
 		if (SystemUserSelectData[i].DeleteFlag == 0) {
 			img = "../assets/i/ico_yes.png";
 		}
-		//Id;SchoolName;SchoolCode;ClassName;ClassCode;RoleCode;RoleName;UserCode;UserName;UserIcon;UserIDNumber;
-		//UserSex;UserDateOfBirth;UserAge; UserBirthday; UserBelonging;UserPassword; DeleteFlag;	
+		// Id;SchoolName;SchoolCode;ClassName;ClassCode;RoleCode;RoleName;UserCode;UserName;UserIcon;UserIDNumber;
+		// UserSex;UserDateOfBirth;UserAge; UserBirthday;
+		// UserBelonging;UserPassword; DeleteFlag;
 		var strData = "[{Id:'" + SystemUserSelectData[i].Id + "',SchoolName:'"
 				+ SystemUserSelectData[i].SchoolName + "',SchoolCode:'"
 				+ SystemUserSelectData[i].SchoolCode + "',ClassName:'"
@@ -193,7 +168,7 @@ function BandingSystemUserData(IndexPage) {
 	SystemUserBandingPages();
 }
 
-//绑定角色页面的分页选项
+// 绑定角色页面的分页选项
 function SystemUserBandingPages() {
 	var PagesData = "<li><a href=\"javascript:BandingSystemUserData(" + 1
 			+ ") \">«</a></li>";
@@ -206,8 +181,8 @@ function SystemUserBandingPages() {
 				PagesData += "<li class=\"am-active\"><a href=\"javascript:BandingSystemUserData("
 						+ ind + ") \">" + ind + "</a></li>";
 			} else {
-				PagesData += "<li><a href=\"javascript:BandingSystemUserData(" + ind
-						+ ") \">" + ind + "</a></li>";
+				PagesData += "<li><a href=\"javascript:BandingSystemUserData("
+						+ ind + ") \">" + ind + "</a></li>";
 			}
 		}
 	} else {
@@ -243,7 +218,7 @@ function SystemUserBandingPages() {
 	// RolePages
 }
 
-//打开编辑页面
+// 打开编辑页面
 function SystemUserEditFunc(data) {
 	$("#SystemUserShowPage").hide();
 	$("#SystemUserEditPage").show();
@@ -264,13 +239,13 @@ function SystemUserEditFunc(data) {
 		}
 	}
 }
-//关闭编辑页面
+// 关闭编辑页面
 function SystemUserEditClose() {
 	$("#SystemUserShowPage").show();
 	$("#SystemUserEditPage").hide();
 }
 var SystemUserFromState = "I";
-//保存数据
+// 保存数据
 function SystemUserSaveData() {
 	// 定义当前页面访问的接口地址
 	var url = "../SystemUser/UpdateSystemUser";
@@ -345,7 +320,8 @@ function SystemUserDeleteFunc(da) {
 	// var top = ($("#RoleShowPage").height() -
 	// $("#SysetmRoleMessage").height())/2;
 	var top = 125;
-	var left = ($("#SystemUserShowPage").width() - $("#SystemUserMessage").width()) / 2;
+	var left = ($("#SystemUserShowPage").width() - $("#SystemUserMessage")
+			.width()) / 2;
 	$("#SystemUserMessage").css({
 		'display' : 'block',
 		'top' : top,
