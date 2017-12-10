@@ -2,6 +2,8 @@ package EarlyToSchool.Manage;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.bson.types.ObjectId;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -16,11 +18,11 @@ public class IndexManage {
 	public static String GetSystemApplicationSetList(HttpServletRequest request) {
 		String Data = "[";
 		// 获取传进来的用户名
-		String UserCode = request.getParameter("UserCode").toString();		
+		String Id = request.getParameter("Id").toString();		
 		// 获取用户所有应用集
 		BasicDBObject userId = new BasicDBObject();
 		userId.append(QueryOperators.AND,
-				new BasicDBObject[] { new BasicDBObject("UserCode", UserCode), new BasicDBObject("DeleteFlag", "0") });
+				new BasicDBObject[] { new BasicDBObject("_id", new ObjectId(Id)), new BasicDBObject("DeleteFlag", "0") });
 		DBCursor table = MongoDataBase.ConditionQuery(TableName, userId);
 		// 获取用户角色
 		String RoleCode = "0000";

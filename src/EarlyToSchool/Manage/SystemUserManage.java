@@ -12,6 +12,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.QueryOperators;
 
+import CommonMethods.EncryptionUtils;
 import Mongodb.MongoDataBase;
 
 public class SystemUserManage {
@@ -92,7 +93,9 @@ public class SystemUserManage {
 			doc.append("UserAge", request.getParameter("UserAge"));
 			doc.append("UserBirthday", request.getParameter("UserBirthday"));
 			doc.append("UserBelonging", request.getParameter("UserBelonging"));
-			doc.append("UserPassword", request.getParameter("UserPassword"));
+			String UserPassword = request.getParameter("UserPassword").toString();
+			UserPassword = EncryptionUtils.encodeMD5(UserPassword);
+			doc.append("UserPassword", UserPassword);
 			doc.append("DeleteFlag", request.getParameter("DeleteFlag"));
 			if (MongoDataBase.Insert(TableName, doc)) {
 				State = "Yes";
@@ -132,7 +135,9 @@ public class SystemUserManage {
 		newDocument.put("UserAge", request.getParameter("UserAge"));
 		newDocument.put("UserBirthday", request.getParameter("UserBirthday"));
 		newDocument.put("UserBelonging", request.getParameter("UserBelonging"));
-		newDocument.put("UserPassword", request.getParameter("UserPassword"));
+		String UserPassword = request.getParameter("UserPassword").toString();
+		UserPassword = EncryptionUtils.encodeMD5(UserPassword);
+		newDocument.put("UserPassword", UserPassword);
 		newDocument.put("DeleteFlag", request.getParameter("DeleteFlag"));
 
 		if (MongoDataBase.Update(TableName, query, newDocument)) {
@@ -181,13 +186,13 @@ public class SystemUserManage {
 
 		if (SystemUserDataSet.find(userId).count() > 0) {
 			// 存在当前用户
-			userId.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserPassword", UserPassword) });
+			userId.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserPassword", EncryptionUtils.encodeMD5(UserPassword)) });
 			DBCursor table = SystemUserDataSet.find(userId);
 			if (table.count() > 0) {
 				// 登陆成功
 				while (table.hasNext()) {
 					DBObject dbObj = table.next();
-					UserCode = dbObj.get("UserCode").toString();
+					UserCode = dbObj.get("_id").toString();
 				}
 				State = "Yes:" + UserCode;
 			} else {

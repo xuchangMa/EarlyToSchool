@@ -3,8 +3,8 @@
  */
 $(function (){
 	//获取当前登录用户的编码
-	var UserCode = $.cookie("UserCode");
-	if(UserCode == "" || UserCode == null){
+	var Id = $.cookie("Id");
+	if(Id == "" || Id == null){
 		$("#LoginDiv").hide();
 		$("#NoLoginDiv").show();
 		return false;
@@ -13,7 +13,7 @@ $(function (){
 	$("#LoginDiv").show();
 	//获取用户基本信息
 	da = {
-			"UserCode" : $.cookie("UserCode")
+			"Id" : $.cookie("Id")
 		};
 	// 定义当前页面访问的接口地址
 	var url = "../SystemUser/getSystemApplicationSet";

@@ -36,7 +36,7 @@
 			success : function(data) {
 				if (data.indexOf("Yes") >= 0) {
 					// 把查询数据赋值给js变量
-					$.cookie("UserCode", data.split(":")[1], {
+					$.cookie("Id", data.split(":")[1], {
 						expires : 7
 					}); // 存储一个带7天期限的 cookie 
 					window.location.href = "../home";
