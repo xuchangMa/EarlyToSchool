@@ -1,5 +1,7 @@
 package Mongodb;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
@@ -11,7 +13,7 @@ import com.mongodb.MongoClient;
 
 public class MongoDataBase {
 	static Mongo mongoClient;
-	//private static com.mongodb.DB mongoDatabase;
+	// private static com.mongodb.DB mongoDatabase;
 	static String host = "localhost";
 	static int port = 27017;
 	static String databaseName = "EarlyToSchoolDB";
@@ -21,22 +23,24 @@ public class MongoDataBase {
 		DB mongoDatabase = null;
 		try {
 			// 连接到 mongodb 服务
-			//MongoClient mongoClient = new MongoClient(host, port);
+			// MongoClient mongoClient = new MongoClient(host, port);
 			mongoClient = new MongoClient(host, port);
 			// 连接到数据库
-			
+
 			mongoDatabase = mongoClient.getDB(databaseName);
-			//mongoDatabase = mongoClient.getDB(databaseName);
+			// mongoDatabase = mongoClient.getDB(databaseName);
 			System.out.println("Connect to database successfully");
 		} catch (Exception e) {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		}
 		return mongoDatabase;
 	}
-	//关闭当前数据库连接
-	public static void drop(){
+
+	// 关闭当前数据库连接
+	public static void drop() {
 		mongoClient.close();
 	}
+
 	// 查询表所有数据
 	// 表名：TableName
 	// 修改条件：query/query=null,查询所有
@@ -71,8 +75,7 @@ public class MongoDataBase {
 		// 返回数据集
 		return collection;
 	}
-	
-	
+
 	// 插入数据集
 	// 表名：TableName
 	// 插入的数据实体：documents
@@ -89,7 +92,7 @@ public class MongoDataBase {
 			mongoDatabase = null;
 			// 插入数据集
 			collection.insert(documents);
-			//关闭数据连接
+			// 关闭数据连接
 			drop();
 			// 清空对象
 			collection = null;
@@ -115,7 +118,7 @@ public class MongoDataBase {
 			mongoDatabase = null;
 			// 插入数据集
 			collection.insert(documents);
-			//关闭数据连接
+			// 关闭数据连接
 			drop();
 			// 清空对象
 			collection = null;
@@ -149,7 +152,7 @@ public class MongoDataBase {
 			query = null;
 			newDocument = null;
 			updateObj = null;
-			//关闭数据连接
+			// 关闭数据连接
 			drop();
 		} catch (Exception e) {
 			return false;
@@ -176,8 +179,41 @@ public class MongoDataBase {
 			// 清空对象
 			collection = null;
 			query = null;
-			//关闭数据连接
+			// 关闭数据连接
 			drop();
+		} catch (Exception e) {
+			return false;
+		}
+		return true;
+	}
+
+	// 插入数据集
+	// 表名：日志类型
+	// 插入消息内容
+	public static boolean Logs(String LogType, String Message) {
+		// 获取数据库服务
+		DB mongoDatabase = GetDataBaseServer();
+		if (mongoDatabase == null) {
+			return false;
+		}
+		// 获取数据表链接
+		try {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			BasicDBObject documents = new BasicDBObject();
+			documents.append("MessageType", LogType);
+			documents.append("Message", Message);
+			documents.append("CreatedOn", dateFormat.format(new Date()));
+			// 获取数据表服务
+			DBCollection collection = mongoDatabase.getCollection("Logs");
+			mongoDatabase = null;
+			// 插入数据集
+			collection.insert(documents);
+			// 关闭数据连接
+			drop();
+			// 清空对象
+			collection = null;
+			dateFormat = null;
+			documents = null;
 		} catch (Exception e) {
 			return false;
 		}

@@ -24,7 +24,7 @@ public class SystemUserManage {
 		BasicDBObject rolequery = new BasicDBObject();
 		rolequery.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0") });
 		String Data = "[";
-		// 获取角色所有应用集		
+		// 获取角色所有应用集
 		BasicDBObject query = new BasicDBObject();
 		query.append(QueryOperators.OR,
 				new BasicDBObject[] { new BasicDBObject("DeleteFlag", "0"), new BasicDBObject("DeleteFlag", "1") });
@@ -36,12 +36,11 @@ public class SystemUserManage {
 					+ "',\"ClassCode\":'" + dbObj.get("ClassCode") + "',\"RoleCode\":'" + dbObj.get("RoleCode")
 					+ "',\"RoleName\":'" + dbObj.get("RoleName") + "',\"UserCode\":'" + dbObj.get("UserCode")
 					+ "',\"UserName\":'" + dbObj.get("UserName") + "',\"UserIcon\":'" + dbObj.get("UserIcon")
-					+ "',\"UserIDNumber\":'" + dbObj.get("UserIDNumber") + "',\"UserSex\":'"
-					+ dbObj.get("UserSex") + "',\"UserDateOfBirth\":'" + dbObj.get("UserDateOfBirth")
-					+ "',\"UserAge\":'" + dbObj.get("UserAge") + "',\"UserBirthday\":'"
-					+ dbObj.get("UserBirthday") + "',\"UserBelonging\":'" + dbObj.get("UserBelonging")
-					+ "',\"UserPassword\":'" + dbObj.get("UserPassword") + "',\"DeleteFlag\":'"
-					+ dbObj.get("DeleteFlag") + "'},";
+					+ "',\"UserIDNumber\":'" + dbObj.get("UserIDNumber") + "',\"UserSex\":'" + dbObj.get("UserSex")
+					+ "',\"UserDateOfBirth\":'" + dbObj.get("UserDateOfBirth") + "',\"UserAge\":'"
+					+ dbObj.get("UserAge") + "',\"UserBirthday\":'" + dbObj.get("UserBirthday")
+					+ "',\"UserBelonging\":'" + dbObj.get("UserBelonging") + "',\"UserPassword\":'"
+					+ dbObj.get("UserPassword") + "',\"DeleteFlag\":'" + dbObj.get("DeleteFlag") + "'},";
 		}
 		Data = Data.substring(0, Data.length() - 1);
 		Data += "]";
@@ -99,6 +98,7 @@ public class SystemUserManage {
 			doc.append("DeleteFlag", request.getParameter("DeleteFlag"));
 			if (MongoDataBase.Insert(TableName, doc)) {
 				State = "Yes";
+				MongoDataBase.Logs("正常", TableName + "表插入数据成功，UserCode:" + UserCode);
 			} else {
 				State = "No";
 			}
@@ -107,46 +107,53 @@ public class SystemUserManage {
 			userquery = null;
 			roletable = null;
 			doc = null;
-			
+
 		} catch (Exception e) {
 			State = e.getMessage();
+			MongoDataBase.Logs("错误", TableName + "表插入数据失败！错误消息：" + e.getMessage());
 		}
-		
+
 		return State;
 	}
 
 	// 修改用户数据
 	public static String UpdateSystemUserData(HttpServletRequest request) {
 		String State = "Yes";
-		BasicDBObject query = new BasicDBObject();
-		query.append("_id", new ObjectId(request.getParameter("Id")));
-		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("SchoolName", request.getParameter("SchoolName"));
-		newDocument.put("SchoolCode", request.getParameter("SchoolCode"));
-		newDocument.put("ClassName", request.getParameter("ClassName"));
-		newDocument.put("ClassCode", request.getParameter("ClassCode"));
-		newDocument.put("RoleCode", request.getParameter("RoleCode"));
-		newDocument.put("RoleName", request.getParameter("RoleName"));
-		newDocument.put("UserName", request.getParameter("UserName"));
-		newDocument.put("UserIcon", request.getParameter("UserIcon"));
-		newDocument.put("UserIDNumber", request.getParameter("UserIDNumber"));
-		newDocument.put("UserSex", request.getParameter("UserSex"));
-		newDocument.put("UserDateOfBirth", request.getParameter("UserDateOfBirth"));
-		newDocument.put("UserAge", request.getParameter("UserAge"));
-		newDocument.put("UserBirthday", request.getParameter("UserBirthday"));
-		newDocument.put("UserBelonging", request.getParameter("UserBelonging"));
-		String UserPassword = request.getParameter("UserPassword").toString();
-		UserPassword = EncryptionUtils.encodeMD5(UserPassword);
-		newDocument.put("UserPassword", UserPassword);
-		newDocument.put("DeleteFlag", request.getParameter("DeleteFlag"));
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.append("_id", new ObjectId(request.getParameter("Id")));
+			BasicDBObject newDocument = new BasicDBObject();
+			newDocument.put("SchoolName", request.getParameter("SchoolName"));
+			newDocument.put("SchoolCode", request.getParameter("SchoolCode"));
+			newDocument.put("ClassName", request.getParameter("ClassName"));
+			newDocument.put("ClassCode", request.getParameter("ClassCode"));
+			newDocument.put("RoleCode", request.getParameter("RoleCode"));
+			newDocument.put("RoleName", request.getParameter("RoleName"));
+			newDocument.put("UserName", request.getParameter("UserName"));
+			newDocument.put("UserIcon", request.getParameter("UserIcon"));
+			newDocument.put("UserIDNumber", request.getParameter("UserIDNumber"));
+			newDocument.put("UserSex", request.getParameter("UserSex"));
+			newDocument.put("UserDateOfBirth", request.getParameter("UserDateOfBirth"));
+			newDocument.put("UserAge", request.getParameter("UserAge"));
+			newDocument.put("UserBirthday", request.getParameter("UserBirthday"));
+			newDocument.put("UserBelonging", request.getParameter("UserBelonging"));
+			String UserPassword = request.getParameter("UserPassword").toString();
+			UserPassword = EncryptionUtils.encodeMD5(UserPassword);
+			newDocument.put("UserPassword", UserPassword);
+			newDocument.put("DeleteFlag", request.getParameter("DeleteFlag"));
 
-		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			State = GetSystemUserList();
-		} else {
-			State = "No";
+			if (MongoDataBase.Update(TableName, query, newDocument)) {
+				State = GetSystemUserList();
+				MongoDataBase.Logs("正常", TableName + "表修改数据成功，UserCode:" + request.getParameter("UserCode"));
+			} else {
+				State = "No";
+			}
+			query = null;
+			newDocument = null;
+		} catch (Exception e) {
+			State = e.getMessage();
+			MongoDataBase.Logs("错误", TableName + "表修改数据失败！错误消息：" + e.getMessage());
 		}
-		query = null;
-		newDocument = null;
 		return State;
 	}
 
@@ -154,20 +161,26 @@ public class SystemUserManage {
 	public static String DeleteSystemUserData(HttpServletRequest request) {
 		String Id = request.getParameter("Id");
 		String State = "No";
-		BasicDBObject query = new BasicDBObject();
-		query.append("_id", new ObjectId(Id));
+		try {
+			BasicDBObject query = new BasicDBObject();
+			query.append("_id", new ObjectId(Id));
 
-		BasicDBObject newDocument = new BasicDBObject();
-		newDocument.put("DeleteFlag", "2");
+			BasicDBObject newDocument = new BasicDBObject();
+			newDocument.put("DeleteFlag", "2");
 
-		if (MongoDataBase.Update(TableName, query, newDocument)) {
-			State = GetSystemUserList();
-		} else {
-			State = "No";
+			if (MongoDataBase.Update(TableName, query, newDocument)) {
+				State = GetSystemUserList();
+				MongoDataBase.Logs("正常", TableName + "表删除数据成功，_id:" + new ObjectId(Id));
+			} else {
+				State = "No";
+			}
+			query = null;
+			Id = null;
+			newDocument = null;
+		} catch (Exception e) {
+			State = e.getMessage();
+			MongoDataBase.Logs("错误", TableName + "表删除数据失败！错误消息：" + e.getMessage());
 		}
-		query = null;
-		Id = null;
-		newDocument = null;
 		return State;
 	}
 
@@ -177,38 +190,47 @@ public class SystemUserManage {
 		// 获取传进来的用户名和密码
 		String UserCode = request.getParameter("UserCode");
 		String UserPassword = request.getParameter("UserPassword");
-		// 获取用户所有应用集
-		DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
-		// 支持身份证号或用户编号登陆
-		BasicDBObject userId = new BasicDBObject();
-		userId.append(QueryOperators.OR, new BasicDBObject[] { new BasicDBObject("UserIDNumber", UserCode),
-				new BasicDBObject("UserCode", UserCode) });
+		try {
+			// 获取用户所有应用集
+			DBCollection SystemUserDataSet = MongoDataBase.ConditionQuery(TableName);
+			// 支持身份证号或用户编号登陆
+			BasicDBObject userId = new BasicDBObject();
+			userId.append(QueryOperators.OR, new BasicDBObject[] { new BasicDBObject("UserIDNumber", UserCode),
+					new BasicDBObject("UserCode", UserCode) });
 
-		if (SystemUserDataSet.find(userId).count() > 0) {
-			// 存在当前用户
-			userId.append(QueryOperators.AND, new BasicDBObject[] { new BasicDBObject("UserPassword", EncryptionUtils.encodeMD5(UserPassword)) });
-			DBCursor table = SystemUserDataSet.find(userId);
-			if (table.count() > 0) {
-				// 登陆成功
-				while (table.hasNext()) {
-					DBObject dbObj = table.next();
-					UserCode = dbObj.get("_id").toString();
+			if (SystemUserDataSet.find(userId).count() > 0) {
+				// 存在当前用户
+				userId.append(QueryOperators.AND, new BasicDBObject[] {
+						new BasicDBObject("UserPassword", EncryptionUtils.encodeMD5(UserPassword)) });
+				DBCursor table = SystemUserDataSet.find(userId);
+				if (table.count() > 0) {
+					// 登陆成功
+					MongoDataBase.Logs("正常", "用户：" + UserCode + "登陆成功");
+					while (table.hasNext()) {
+						DBObject dbObj = table.next();
+						UserCode = dbObj.get("_id").toString();
+					}
+					State = "Yes:" + UserCode;
+				} else {
+					// 密码不正确
+					State = "密码不正确";
 				}
-				State = "Yes:" + UserCode;
+				table = null;
 			} else {
-				// 密码不正确
-				State = "密码不正确";
+				// 用户名不存在
+				State = "用户名不存在";
 			}
-			table = null;
-		} else {
-			// 用户名不存在
-			State = "用户名不存在";
+			SystemUserDataSet = null;
+			userId = null;
+		} catch (Exception e) {
+			State = e.getMessage();
+			MongoDataBase.Logs("错误", "用户：" + UserCode + "登陆失败！错误消息：" + e.getMessage());
+		} finally {
+			UserCode = null;
+			UserPassword = null;
+			MongoDataBase.drop();// 关闭数据库连接
 		}
-		UserCode = null;
-		UserPassword = null;
-		SystemUserDataSet = null;
-		userId = null;
-		MongoDataBase.drop();// 关闭数据库连接
+
 		return State;
 	}
 }
