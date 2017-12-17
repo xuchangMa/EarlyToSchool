@@ -18,12 +18,16 @@
 	private String SuperintendentId;
 	//负责人编码
 	private String SuperintendentCode;
+	
+	//注册时间
+	//有效时间
+	
 	//是否生效
 	private boolean DeleteFlag;	
 }
  * 
  */
-var url = "../System/GetZh";
+/*var url = "../System/GetZh";
 $(function () {
 	alert(url);
     $.post(url, { "username": "中文", "password": "psw001" }, function (data, state) {
@@ -32,4 +36,4 @@ $(function () {
         }else{alert("获取数据失败！")}
         
     });
-});
+});*/

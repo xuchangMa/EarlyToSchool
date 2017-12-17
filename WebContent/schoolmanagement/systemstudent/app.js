@@ -5,7 +5,7 @@
 /*定义数据结构
  * public class SystemStudent{
 	//表id
-	private String Id;	
+	private String Id;
     //班级名称
 	private String ClassName;
 	//班级编码

@@ -95,7 +95,7 @@ db.SystemApplicationSet.insert({
     "ApplicationIcon" : "am-icon-scribd",
     "ApplicationGrade" : "2",
     "MountFlag" : "1",
-    "ApplicationURL" : "",
+    "ApplicationURL" : "../schoolmanagement/systemschool/app.html",
     "ApplicationPosition" : "1",
     "DeleteFlag" : "0"
 })
@@ -106,7 +106,7 @@ db.SystemApplicationSet.insert({
     "ApplicationIcon" : "am-icon-map-signs",
     "ApplicationGrade" : "2",
     "MountFlag" : "1",
-    "ApplicationURL" : "",
+    "ApplicationURL" : "../schoolmanagement/systemclass/app.html",
     "ApplicationPosition" : "2",
     "DeleteFlag" : "0"
 })
@@ -117,7 +117,7 @@ db.SystemApplicationSet.insert({
     "ApplicationIcon" : "am-icon-male",
     "ApplicationGrade" : "2",
     "MountFlag" : "1",
-    "ApplicationURL" : "",
+    "ApplicationURL" : "../schoolmanagement/systemteacher/app.html",
     "ApplicationPosition" : "3",
     "DeleteFlag" : "0"
 })
@@ -128,7 +128,7 @@ db.SystemApplicationSet.insert({
     "ApplicationIcon" : "am-icon-group",
     "ApplicationGrade" : "2",
     "MountFlag" : "1",
-    "ApplicationURL" : "",
+    "ApplicationURL" : "../schoolmanagement/systemstudent/app.html",
     "ApplicationPosition" : "4",
     "DeleteFlag" : "0"
 })
@@ -161,7 +161,7 @@ db.SystemApplicationSet.insert({
     "ApplicationIcon" : "am-icon-chain-broken",
     "ApplicationGrade" : "2",
     "MountFlag" : "1",
-    "ApplicationURL" : "",
+    "ApplicationURL" : "../systemapply/roleconfiguration/app.html",
     "ApplicationPosition" : "3",
     "DeleteFlag" : "0"
 })
