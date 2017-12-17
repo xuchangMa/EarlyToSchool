@@ -25,6 +25,21 @@
 	//是否生效
 	private boolean DeleteFlag;	
 }
+/*定义收费数据结构
+ * public class SystemSchool{
+	//表id
+	private String Id;	
+	//学校编码
+	private String SchoolCode;
+	//收费金额
+	private String SchoolArea;
+	//收费类型
+	private String SchoolArea;
+	//支付账户
+	private String SchoolArea;
+	//收费日期
+	private String SchoolSuperintendent;
+}
  * 
  */
 /*var url = "../System/GetZh";
